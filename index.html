@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>clojure.tools.deps - tools.deps 0.17.1298-SNAPSHOT API documentation</title>
+    <title>clojure.tools.deps - tools.deps 0.18.1332-SNAPSHOT API documentation</title>
     <link rel="icon" href="static/favicon.png" />
     <link rel="shortcut icon" href="static/favicon.png" />
     <link rel="stylesheet" href="static/clojure.css" type="text/css" media="all" />
@@ -25,7 +25,7 @@ namespace.
       <div id="leftcolumn"><div style="text-align: center;"></div>
 <div class="menu">
   <div class="WikiCustomNav WikiElement wiki">
-    <span class="toc-header"><span id="project-name">tools.deps</span> <span id="version">0.17.1298-SNAPSHOT</span> API</span><br />
+    <span class="toc-header"><span id="project-name">tools.deps</span> <span id="version">0.18.1332-SNAPSHOT</span> API</span><br />
     <ul>
       <li><a href="index.html" class="wiki_link">Overview</a></li>
       <li><a href="api-index.html" class="wiki_link">API Index</a></li>
@@ -67,6 +67,9 @@ namespace.
       
     </div><div class="toc-entry" style="margin-left: 1em;">
       <a href="#clojure.tools.deps/find-edn-maps" class="toc-entry-anchor">find-edn-maps</a>
+      
+    </div><div class="toc-entry" style="margin-left: 1em;">
+      <a href="#clojure.tools.deps/find-latest-version" class="toc-entry-anchor">find-latest-version</a>
       
     </div><div class="toc-entry" style="margin-left: 1em;">
       <a href="#clojure.tools.deps/join-classpath" class="toc-entry-anchor">join-classpath</a>
@@ -241,7 +244,7 @@ namespace.
 </div>
 </div>
                 <div id="content-tag"><h1 id="overview">API for <span id="clojure.tools.deps">clojure.tools.deps</span>
-  - <span id="header-project">tools.deps</span> <span id="header-version">0.17.1298-SNAPSHOT</span><span id="header-status-block"> (<span id="header-status">in development</span>)</span>
+  - <span id="header-project">tools.deps</span> <span id="header-version">0.18.1332-SNAPSHOT</span><span id="header-status-block"> (<span id="header-status">in development</span>)</span>
   </h1>
 
 <br />Full namespace name: <span id="long-name">clojure.tools.deps</span>
@@ -288,7 +291,7 @@ Returns the runtime basis, which is the initial deps edn map plus these keys:
     <pre id="var-specs"></pre>
     
     
-    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/8ede90613bb04f8756f49244f4c60f4f05b6ac82/src/main/clojure/clojure/tools/deps.clj#L727">Source</a>
+    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/20df42b6ad8180121123aa7c6da466f1cee3635e/src/main/clojure/clojure/tools/deps.clj#L727">Source</a>
   </div><div id="var-entry">
     <br />
     <hr />
@@ -301,7 +304,7 @@ a deps edn map into a single args map.</pre>
     <pre id="var-specs"></pre>
     
     
-    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/8ede90613bb04f8756f49244f4c60f4f05b6ac82/src/main/clojure/clojure/tools/deps.clj#L186">Source</a>
+    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/20df42b6ad8180121123aa7c6da466f1cee3635e/src/main/clojure/clojure/tools/deps.clj#L186">Source</a>
   </div><div id="var-entry">
     <br />
     <hr />
@@ -345,7 +348,7 @@ Returns a runtime basis, which is the initial merged deps edn map plus these key
     <pre id="var-specs"></pre>
     
     
-    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/8ede90613bb04f8756f49244f4c60f4f05b6ac82/src/main/clojure/clojure/tools/deps.clj#L787">Source</a>
+    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/20df42b6ad8180121123aa7c6da466f1cee3635e/src/main/clojure/clojure/tools/deps.clj#L787">Source</a>
   </div><div id="var-entry">
     <br />
     <hr />
@@ -358,7 +361,7 @@ them in a map with keys :root :user :project :extra</pre>
     <pre id="var-specs"></pre>
     
     
-    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/8ede90613bb04f8756f49244f4c60f4f05b6ac82/src/main/clojure/clojure/tools/deps.clj#L772">Source</a>
+    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/20df42b6ad8180121123aa7c6da466f1cee3635e/src/main/clojure/clojure/tools/deps.clj#L772">Source</a>
   </div><div id="var-entry">
     <br />
     <hr />
@@ -373,7 +376,21 @@ If no project-edn is supplied, use the deps.edn in current directory</pre>
     <pre id="var-specs"></pre>
     
     
-    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/8ede90613bb04f8756f49244f4c60f4f05b6ac82/src/main/clojure/clojure/tools/deps.clj#L118">Source</a>
+    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/20df42b6ad8180121123aa7c6da466f1cee3635e/src/main/clojure/clojure/tools/deps.clj#L118">Source</a>
+  </div><div id="var-entry">
+    <br />
+    <hr />
+    <h2 id="clojure.tools.deps/find-latest-version">find-latest-version</h2>
+    <span id="var-type">function</span><br />
+    <pre id="var-usage">Usage: (find-latest-version {:keys [lib procurer]})
+</pre>
+    <pre id="var-docstr">Find versions of lib across all registered procurer types, and return
+latest version of coord from the first procurer type that has any coords,
+starting with :mvn, then :git. If none are found, return nil.</pre>
+    <pre id="var-specs"></pre>
+    
+    
+    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/20df42b6ad8180121123aa7c6da466f1cee3635e/src/main/clojure/clojure/tools/deps.clj#L878">Source</a>
   </div><div id="var-entry">
     <br />
     <hr />
@@ -385,7 +402,7 @@ If no project-edn is supplied, use the deps.edn in current directory</pre>
     <pre id="var-specs"></pre>
     
     
-    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/8ede90613bb04f8756f49244f4c60f4f05b6ac82/src/main/clojure/clojure/tools/deps.clj#L610">Source</a>
+    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/20df42b6ad8180121123aa7c6da466f1cee3635e/src/main/clojure/clojure/tools/deps.clj#L610">Source</a>
   </div><div id="var-entry">
     <br />
     <hr />
@@ -398,7 +415,7 @@ without actually doing the procuring!</pre>
     <pre id="var-specs"></pre>
     
     
-    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/8ede90613bb04f8756f49244f4c60f4f05b6ac82/src/main/clojure/clojure/tools/deps.clj#L194">Source</a>
+    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/20df42b6ad8180121123aa7c6da466f1cee3635e/src/main/clojure/clojure/tools/deps.clj#L194">Source</a>
   </div><div id="var-entry">
     <br />
     <hr />
@@ -438,7 +455,7 @@ Returns the classpath as a string.</pre>
           nil)</pre>
     
     <span class="var-deprecated"><span id="content">Deprecated since tools.deps version 0.9.745</span><br /></span>
-    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/8ede90613bb04f8756f49244f4c60f4f05b6ac82/src/main/clojure/clojure/tools/deps.clj#L615">Source</a>
+    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/20df42b6ad8180121123aa7c6da466f1cee3635e/src/main/clojure/clojure/tools/deps.clj#L615">Source</a>
   </div><div id="var-entry">
     <br />
     <hr />
@@ -478,7 +495,7 @@ Returns a map:
           nil)</pre>
     
     
-    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/8ede90613bb04f8756f49244f4c60f4f05b6ac82/src/main/clojure/clojure/tools/deps.clj#L591">Source</a>
+    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/20df42b6ad8180121123aa7c6da466f1cee3635e/src/main/clojure/clojure/tools/deps.clj#L591">Source</a>
   </div><div id="var-entry">
     <br />
     <hr />
@@ -490,7 +507,7 @@ Returns a map:
     <pre id="var-specs"></pre>
     
     
-    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/8ede90613bb04f8756f49244f4c60f4f05b6ac82/src/main/clojure/clojure/tools/deps.clj#L141">Source</a>
+    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/20df42b6ad8180121123aa7c6da466f1cee3635e/src/main/clojure/clojure/tools/deps.clj#L141">Source</a>
   </div><div id="var-entry">
     <br />
     <hr />
@@ -512,7 +529,7 @@ Options:
     <pre id="var-specs"></pre>
     
     
-    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/8ede90613bb04f8756f49244f4c60f4f05b6ac82/src/main/clojure/clojure/tools/deps.clj#L676">Source</a>
+    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/20df42b6ad8180121123aa7c6da466f1cee3635e/src/main/clojure/clojure/tools/deps.clj#L676">Source</a>
   </div><div id="var-entry">
     <br />
     <hr />
@@ -524,7 +541,7 @@ Options:
     <pre id="var-specs"></pre>
     
     
-    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/8ede90613bb04f8756f49244f4c60f4f05b6ac82/src/main/clojure/clojure/tools/deps.clj#L519">Source</a>
+    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/20df42b6ad8180121123aa7c6da466f1cee3635e/src/main/clojure/clojure/tools/deps.clj#L519">Source</a>
   </div><div id="var-entry">
     <br />
     <hr />
@@ -548,7 +565,7 @@ Returns a map of:
     <pre id="var-specs"></pre>
     
     
-    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/8ede90613bb04f8756f49244f4c60f4f05b6ac82/src/main/clojure/clojure/tools/deps.clj#L856">Source</a>
+    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/20df42b6ad8180121123aa7c6da466f1cee3635e/src/main/clojure/clojure/tools/deps.clj#L847">Source</a>
   </div><div id="var-entry">
     <br />
     <hr />
@@ -588,7 +605,7 @@ Returns a lib map (map of lib to coordinate chosen).</pre>
           nil)</pre>
     
     
-    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/8ede90613bb04f8756f49244f4c60f4f05b6ac82/src/main/clojure/clojure/tools/deps.clj#L477">Source</a>
+    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/20df42b6ad8180121123aa7c6da466f1cee3635e/src/main/clojure/clojure/tools/deps.clj#L477">Source</a>
   </div><div id="var-entry">
     <br />
     <hr />
@@ -601,7 +618,7 @@ clojure/tools/deps/deps.edn</pre>
     <pre id="var-specs"></pre>
     
     
-    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/8ede90613bb04f8756f49244f4c60f4f05b6ac82/src/main/clojure/clojure/tools/deps.clj#L99">Source</a>
+    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/20df42b6ad8180121123aa7c6da466f1cee3635e/src/main/clojure/clojure/tools/deps.clj#L99">Source</a>
   </div><div id="var-entry">
     <br />
     <hr />
@@ -614,7 +631,7 @@ return a deps map. If the file doesn't exist, returns nil.</pre>
     <pre id="var-specs"></pre>
     
     
-    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/8ede90613bb04f8756f49244f4c60f4f05b6ac82/src/main/clojure/clojure/tools/deps.clj#L92">Source</a>
+    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/20df42b6ad8180121123aa7c6da466f1cee3635e/src/main/clojure/clojure/tools/deps.clj#L92">Source</a>
   </div><div id="var-entry">
     <br />
     <hr />
@@ -627,7 +644,7 @@ returning an updated project edn.</pre>
     <pre id="var-specs"></pre>
     
     
-    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/8ede90613bb04f8756f49244f4c60f4f05b6ac82/src/main/clojure/clojure/tools/deps.clj#L629">Source</a>
+    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/20df42b6ad8180121123aa7c6da466f1cee3635e/src/main/clojure/clojure/tools/deps.clj#L629">Source</a>
   </div><div id="var-entry">
     <br />
     <hr />
@@ -640,7 +657,7 @@ Note that it's possible no file may exist at this location.</pre>
     <pre id="var-specs"></pre>
     
     
-    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/8ede90613bb04f8756f49244f4c60f4f05b6ac82/src/main/clojure/clojure/tools/deps.clj#L106">Source</a>
+    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/20df42b6ad8180121123aa7c6da466f1cee3635e/src/main/clojure/clojure/tools/deps.clj#L106">Source</a>
   </div>
 </div>
 
