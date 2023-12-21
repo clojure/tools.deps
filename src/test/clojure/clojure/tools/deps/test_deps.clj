@@ -295,6 +295,18 @@
       (let [b (deps/create-basis {:user nil :project adeps})]
         (is (contains? (:classpath b) (.getAbsolutePath (jio/file bdir "src"))))))))
 
+(deftest empty-nil-deps-is-valid
+  (testing "file exists but is empty (nil)"
+    (is (deps/valid-deps? nil))))
+
+(deftest TDEPS-238
+  (testing "deps are invalid with extra nested vector in :exclusions"
+    (let [invalid {:deps
+                   {'org.clojure/core.memoize
+                    {:mvn/version "1.0.257"
+                     :exclusions [['org.clojure/data.priority-map]]}}}]
+      (is (not (deps/valid-deps? invalid))))))
+
 (comment
   (test-local-root-relative-to-project-deps)
   )

@@ -87,9 +87,9 @@
 (s/def ::paths :aliased/paths)
 (s/def ::deps (s/map-of ::lib ::coord))
 (s/def ::aliases (s/map-of ::alias any?))
-(s/def ::deps-map (s/keys
-                    :opt-un [::paths ::deps ::aliases]
-                    :opt [:mvn/repos :mvn/local-repo :tools/usage :deps/prep-lib]))
+(s/def ::deps-map (s/nilable (s/keys
+                               :opt-un [::paths ::deps ::aliases]
+                               :opt [:mvn/repos :mvn/local-repo :tools/usage :deps/prep-lib])))
 
 ;; lib map
 ;;   a map of lib to resolved coordinate (a coord with a ::path) and dependent info
