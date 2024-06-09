@@ -139,7 +139,7 @@
                        (sort-by #(- (count (:in %))))
                        (sort-by #(- (count (:path %)))))
             {:keys [path pred val reason via in]} (first problems)]
-        (str "Found: " (pr-str val) ", expected: " (if reason reason (s/abbrev pred)))))))
+        (str "Found: " (pr-str val) ", expected: " (if reason reason (s/abbrev pred)) ", in: " (pr-str in))))))
 
 ;; API
 
