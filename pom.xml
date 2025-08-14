@@ -20,7 +20,7 @@
   <properties>
     <!-- used for build -->
     <clojure.warnOnReflection>true</clojure.warnOnReflection>
-    <clojure.version>1.12.0</clojure.version>
+    <clojure.version>1.12.1</clojure.version>
     <resolverVersion>1.8.2</resolverVersion>
     <mavenVersion>3.8.8</mavenVersion>
 
@@ -109,7 +109,12 @@
     <dependency>
       <groupId>com.cognitect.aws</groupId>
       <artifactId>api</artifactId>
-      <version>0.8.723</version>
+      <version>0.8.762</version>
+    </dependency>
+    <dependency>
+      <groupId>com.cognitect</groupId>
+      <artifactId>http-client</artifactId>
+      <version>1.0.127</version>
       <exclusions>
         <exclusion>
           <groupId>org.eclipse.jetty</groupId>
@@ -128,27 +133,27 @@
     <dependency> <!-- override for CVE fixes -->
       <groupId>org.eclipse.jetty</groupId>
       <artifactId>jetty-http</artifactId>
-      <version>9.4.56.v20240826</version>
+      <version>9.4.58.v20250814</version>
     </dependency>
     <dependency> <!-- override for CVE fixes -->
       <groupId>org.eclipse.jetty</groupId>
       <artifactId>jetty-client</artifactId>
-      <version>9.4.56.v20240826</version>
+      <version>9.4.58.v20250814</version>
     </dependency>
     <dependency> <!-- override for CVE fixes -->
       <groupId>org.eclipse.jetty</groupId>
       <artifactId>jetty-client</artifactId>
-      <version>9.4.56.v20240826</version>
+      <version>9.4.58.v20250814</version>
     </dependency>
     <dependency>
       <groupId>com.cognitect.aws</groupId>
       <artifactId>endpoints</artifactId>
-      <version>871.2.29.39</version>
+      <version>871.2.32.21</version>
     </dependency>
     <dependency>
       <groupId>com.cognitect.aws</groupId>
       <artifactId>s3</artifactId>
-      <version>871.2.29.35</version>
+      <version>871.2.32.2</version>
     </dependency>
     <dependency>
       <groupId>javax.inject</groupId>

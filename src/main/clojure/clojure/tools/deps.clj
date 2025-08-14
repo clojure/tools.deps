@@ -288,15 +288,15 @@
     (if (seq path)
       (let [lib (last path)
             check-path (vec (butlast path))
-            {:keys [paths select]} (get vmap lib)]
-        (let [paths-to-selected (get paths select)]
-          (if (contains? paths-to-selected check-path)
-            ;; add alternative paths to root that include the selected lib
-            (recur check-path (concat more-paths (remove #(= % check-path) paths-to-selected)))
-            (if (seq more-paths)
-              ;; consider alternative paths before considering lib to be omitted
-              (recur (first more-paths) (rest more-paths))
-              true))))
+            {:keys [paths select]} (get vmap lib)
+            paths-to-selected (get paths select)]
+        (if (contains? paths-to-selected check-path)
+          ;; add alternative paths to root that include the selected lib
+          (recur check-path (concat more-paths (remove #(= % check-path) paths-to-selected)))
+          (if (seq more-paths)
+            ;; consider alternative paths before considering lib to be omitted
+            (recur (first more-paths) (rest more-paths))
+            true)))
       false)))
 
 (defn- deselect-orphans

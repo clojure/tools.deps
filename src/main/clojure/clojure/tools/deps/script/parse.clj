@@ -10,7 +10,6 @@
   clojure.tools.deps.script.parse
   (:require
     [clojure.java.io :as jio]
-    [clojure.string :as s]
     [clojure.string :as str]
     [clojure.edn :as edn]
     [clojure.tools.deps :as deps])
@@ -41,6 +40,6 @@
   [s]
   (#'deps/canonicalize-all-syms  ;; to be removed in the future
     (cond
-      (s/blank? s) (throw (ex-info (str "-Sdeps must be non-blank") {}))
-      (s/starts-with? (s/trim s) "{") (edn/read-string {:default tagged-literal} s)
+      (str/blank? s) (throw (ex-info "-Sdeps must be non-blank" {}))
+      (str/starts-with? (str/trim s) "{") (edn/read-string {:default tagged-literal} s)
       :else s)))

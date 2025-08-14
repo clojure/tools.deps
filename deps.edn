@@ -1,6 +1,6 @@
 {:paths ["src/main/clojure" "src/main/resources"]
  :deps {
-   org.clojure/clojure {:mvn/version "1.12.0"}
+   org.clojure/clojure {:mvn/version "1.12.1"}
    org.apache.maven.resolver/maven-resolver-api {:mvn/version "1.8.2"}
    org.apache.maven.resolver/maven-resolver-spi {:mvn/version "1.8.2"}
    org.apache.maven.resolver/maven-resolver-impl {:mvn/version "1.8.2"}
@@ -14,23 +14,25 @@
    org.clojure/data.xml {:mvn/version "0.2.0-alpha9"}
    org.clojure/tools.gitlibs {:mvn/version "2.6.206"}
    org.clojure/tools.cli {:mvn/version "1.1.230"}
-   com.cognitect.aws/api {:mvn/version "0.8.723" :exclusions [org.eclipse.jetty/jetty-http org.eclipse.jetty/jetty-client org.eclipse.jetty/jetty-util]}  ;; override for CVEs
-     org.eclipse.jetty/jetty-http {:mvn/version "9.4.56.v20240826"}
-     org.eclipse.jetty/jetty-client {:mvn/version "9.4.56.v20240826"}
-     org.eclipse.jetty/jetty-util {:mvn/version "9.4.56.v20240826"}
-   com.cognitect.aws/endpoints {:mvn/version "871.2.29.39"}
-   com.cognitect.aws/s3 {:mvn/version "871.2.29.35"}
+   com.cognitect.aws/api {:mvn/version "0.8.762"}
+   ;; override jetty stuff under http-client for CVEs
+   com.cognitect/http-client {:mvn/version "1.0.127" :exclusions [org.eclipse.jetty/jetty-http org.eclipse.jetty/jetty-client org.eclipse.jetty/jetty-util]}
+     org.eclipse.jetty/jetty-http {:mvn/version "9.4.58.v20250814"}
+     org.eclipse.jetty/jetty-client {:mvn/version "9.4.58.v20250814"}
+     org.eclipse.jetty/jetty-util {:mvn/version "9.4.58.v20250814"}
+   com.cognitect.aws/endpoints {:mvn/version "871.2.32.21"}
+   com.cognitect.aws/s3 {:mvn/version "871.2.32.2"}
    javax.inject/javax.inject {:mvn/version "1"}
  }
  :aliases {
    :test {:extra-paths ["src/test/clojure"]}
 
    ;; clj -M:lint
-   :lint {:replace-deps {clj-kondo/clj-kondo {:mvn/version "2024.11.14"}}
+   :lint {:replace-deps {clj-kondo/clj-kondo {:mvn/version "2025.07.28"}}
           :main-opts ["-m" "clj-kondo.main" "--lint" "src/main/clojure" "--lint" "src/test/clojure"]}
 
    ;; clj -M:cve
-   :cve {:extra-deps {io.github.clj-holmes/clj-watson {:git/tag "v6.0.0" :git/sha "cb02879"}}
+   :cve {:extra-deps {io.github.clj-holmes/clj-watson {:git/tag "v6.0.1" :git/sha "b520351"}}
          :extra-paths [".clj-watson"]
          :jvm-opts ["--illegal-access=deny"]
          :main-opts ["-m" "clj-watson.cli" "scan" "-p" "deps.edn"]}

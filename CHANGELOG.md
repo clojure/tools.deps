@@ -5,6 +5,8 @@ Changelog
 
 * next
   * TDEPS-259 Improve error reporting on deps.edn spec errors
+  * Use latest tools.deps.cli in root deps.edn
+  * Update deps to latest
 * 0.24.1523 on June 3, 2025
   * Update to latest tools.deps.cli
 * 0.24.1519 on June 3, 2025

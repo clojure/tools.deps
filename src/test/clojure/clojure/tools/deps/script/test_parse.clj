@@ -1,6 +1,6 @@
 (ns clojure.tools.deps.script.test-parse
   (:require
-    [clojure.test :refer :all]
+    [clojure.test :refer [deftest is]]
     [clojure.tools.deps.script.parse :as parse]))
 
 (deftest test-parse-config

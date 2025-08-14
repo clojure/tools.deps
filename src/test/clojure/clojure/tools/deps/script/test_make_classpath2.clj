@@ -152,7 +152,7 @@
 (deftest skip-cp-flag
   (let [{:keys [basis]} (mc/run-core {:config-project {:deps {'org.clojure/clojure {:mvn/version "1.10.0"}}}
                                       :skip-cp true})]
-    (= {} (select-keys basis [:libs :classpath :classpath-roots]))))
+    (is (= {} (select-keys basis [:libs :classpath :classpath-roots])))))
 
 ;; skip-cp flag still passes exec-args for -X or -T
 (deftest skip-cp-exec
