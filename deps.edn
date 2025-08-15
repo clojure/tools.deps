@@ -2,7 +2,9 @@
  :deps {
    org.clojure/clojure {:mvn/version "1.12.1"}
    org.apache.maven.resolver/maven-resolver-api {:mvn/version "1.8.2"}
-   org.apache.maven.resolver/maven-resolver-spi {:mvn/version "1.8.2"}
+   org.apache.maven.resolver/maven-resolver-spi {:mvn/version "1.8.2" :exclusions [org.apache.commons/commons-lang3]}
+     ;; override for CVE
+     org.apache.commons/commons-lang3 {:mvn/version "3.18.0"}
    org.apache.maven.resolver/maven-resolver-impl {:mvn/version "1.8.2"}
    org.apache.maven.resolver/maven-resolver-util {:mvn/version "1.8.2"}
    org.apache.maven.resolver/maven-resolver-connector-basic {:mvn/version "1.8.2"}
