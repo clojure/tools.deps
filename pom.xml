@@ -20,12 +20,12 @@
   <properties>
     <!-- used for build -->
     <clojure.warnOnReflection>true</clojure.warnOnReflection>
-    <clojure.version>1.12.1</clojure.version>
+    <clojure.version>1.12.2</clojure.version>
     <resolverVersion>1.8.2</resolverVersion>
     <mavenVersion>3.8.8</mavenVersion>
 
     <!-- default published in install deps.edn -->
-    <clojure.default>1.12.0</clojure.default>
+    <clojure.default>1.12.2</clojure.default>
   </properties>
 
   <dependencies>
