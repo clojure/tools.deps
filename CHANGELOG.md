@@ -1,9 +1,11 @@
 Changelog
 ===========
 
-*Also see [Tools and installer changelog](https://github.com/clojure/brew-install/blob/1.12.0/CHANGELOG.md)*
+*Also see [Tools and installer changelog](https://github.com/clojure/brew-install/blob/1.12.2/CHANGELOG.md)*
 
 * next
+  * Update tools.deps.cli version
+* 0.25.1535 on Aug 25, 2025
   * Update dependencies
 * 0.24.1529 on Aug 14, 2025
   * TDEPS-259 Improve error reporting on deps.edn spec errors
