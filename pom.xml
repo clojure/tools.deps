@@ -3,6 +3,7 @@
   <artifactId>tools.deps</artifactId>
   <version>0.26.1554-SNAPSHOT</version>
   <name>tools.deps</name>
+  <description>Clojure dependencies as data and classpath generation tools.</description>
 
   <parent>
     <groupId>org.clojure</groupId>
