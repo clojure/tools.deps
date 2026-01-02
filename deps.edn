@@ -13,9 +13,9 @@
    org.apache.maven/maven-resolver-provider {:mvn/version "3.8.8"}
    ;; exclude due to CVE-2020-8908
    org.apache.maven/maven-core {:mvn/version "3.8.8" :exclusions [com.google.guava/guava]}
-   org.clojure/data.xml {:mvn/version "0.2.0-alpha9"}
-   org.clojure/tools.gitlibs {:mvn/version "2.6.206"}
-   org.clojure/tools.cli {:mvn/version "1.1.230"}
+   org.clojure/data.xml {:mvn/version "0.2.0-alpha10"}
+   org.clojure/tools.gitlibs {:mvn/version "2.6.212"}
+   org.clojure/tools.cli {:mvn/version "1.3.250"}
    com.cognitect.aws/api {:mvn/version "0.8.762"}
    ;; override jetty stuff under http-client for CVEs
    com.cognitect/http-client {:mvn/version "1.0.127" :exclusions [org.eclipse.jetty/jetty-http org.eclipse.jetty/jetty-client org.eclipse.jetty/jetty-util]}
