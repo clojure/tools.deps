@@ -16,6 +16,7 @@
 (def ^:private git-services
   {:github {:service #"^(?:com|io).github.([^.]+)$" :url "https://github.com/%s/%s.git"}
    :gitlab {:service #"^(?:com|io).gitlab.([^.]+)$" :url "https://gitlab.com/%s/%s.git"}
+   :codeberg {:service #"^(?:org|page).codeberg.([^.]+)$" :url "https://codeberg.org/%s/%s.git"}
    :bitbucket {:service #"^(?:org|io).bitbucket.([^.]+)$" :url "https://bitbucket.org/%s/%s.git"}
    :beanstalk {:service #"^(?:com|io).beanstalkapp.([^.]+)$" :url "https://%s.git.beanstalkapp.com/%s.git"}
    :sourcehut {:service #"^ht.sr.([^.]+)$" :url "https://git.sr.ht/~%s/%s"}})

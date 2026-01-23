@@ -22,6 +22,7 @@
     "https://gitlab.com/clojure/tools.deps.git" 'com.gitlab.clojure/tools.deps
     "https://bitbucket.org/clojure/tools.deps.git" 'io.bitbucket.clojure/tools.deps
     "https://bitbucket.org/clojure/tools.deps.git" 'org.bitbucket.clojure/tools.deps
+    "https://codeberg.org/foo/bar.git" 'org.codeberg.foo/bar
     "https://git.sr.ht/~foo/bar" 'ht.sr.foo/bar))
 
 (deftest full-sha
