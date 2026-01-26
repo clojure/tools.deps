@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <artifactId>tools.deps</artifactId>
-  <version>0.28.1570-SNAPSHOT</version>
+  <version>0.28.1574</version>
   <name>tools.deps</name>
   <description>Clojure dependencies as data and classpath generation tools.</description>
 
@@ -221,7 +221,7 @@
     <connection>scm:git:git@github.com:clojure/tools.deps.git</connection>
     <developerConnection>scm:git:git@github.com:clojure/tools.deps.git</developerConnection>
     <url>git@github.com:clojure/tools.deps.git</url>
-    <tag>HEAD</tag>
+    <tag>v0.28.1574</tag>
   </scm>
 
   <repositories>
