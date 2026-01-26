@@ -3,7 +3,7 @@ Changelog
 
 *Also see [Tools and installer changelog](https://github.com/clojure/brew-install/blob/1.12.2/CHANGELOG.md)*
 
-* next
+* 0.28.1574 on Jan 26, 2026
   * TDEPS-273 - Add codeberg to auto git url hosts
 * 0.28.1569 on Jan 2, 2026
   * Update parent pom and contrib deps versions
