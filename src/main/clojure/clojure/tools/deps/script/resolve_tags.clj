@@ -12,7 +12,7 @@
     [clojure.java.io :as jio]
     [clojure.pprint :as pp]
     [clojure.walk :as walk]
-    [clojure.tools.deps :as deps]
+    [clojure.tools.deps.edn :as depsedn]
     [clojure.tools.deps.extensions.git :as git]
     [clojure.tools.deps.util.io :refer [printerrln]]
     [clojure.tools.gitlibs :as gitlibs]
@@ -59,7 +59,7 @@
 (defn exec
   [{:keys [deps-file]}]
   (try
-    (let [deps-map (deps/slurp-deps (jio/file deps-file))
+    (let [deps-map (depsedn/read-deps (jio/file deps-file))
           counter (atom 0)]
       (printerrln "Resolving git tags in" deps-file "...")
       (let [resolved-map (resolve-git-deps counter deps-map)]

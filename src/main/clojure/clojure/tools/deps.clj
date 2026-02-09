@@ -11,187 +11,70 @@
     [clojure.java.io :as jio]
     [clojure.set :as set]
     [clojure.string :as str]
+    [clojure.tools.deps.edn :as depsedn]
     [clojure.tools.deps.util.concurrent :as concurrent]
     [clojure.tools.deps.util.dir :as dir]
     [clojure.tools.deps.util.io :as io]
     [clojure.tools.deps.util.session :as session]
-    [clojure.tools.deps.extensions :as ext]
-    [clojure.tools.deps.specs :as specs]
-    [clojure.walk :as walk])
+    [clojure.tools.deps.extensions :as ext])
   (:import
-    [clojure.lang EdnReader$ReaderException]
     [clojure.lang PersistentQueue]
-    [java.io File InputStreamReader BufferedReader]
+    [java.io File]
     [java.lang ProcessBuilder ProcessBuilder$Redirect]
     [java.util List]
     [java.util.concurrent ConcurrentHashMap ExecutorService]))
 
 ;(set! *warn-on-reflection* true)
 
-;;;; deps.edn reading
-
-(defn- io-err
-  ^Throwable [fmt ^File f]
-  (let [path (.getAbsolutePath f)]
-    (ex-info (format fmt path) {:path path})))
-
-(defn- slurp-edn-map
-  "Read the file specified by the path-segments, slurp it, and read it as edn."
-  [^File f]
-  (let [val (try (io/slurp-edn f)
-                 (catch EdnReader$ReaderException e (throw (io-err (str (.getMessage e) " (%s)") f)))
-                 (catch RuntimeException t
-                   (if (str/starts-with? (.getMessage t) "EOF while reading")
-                     (throw (io-err "Error reading edn, delimiter unmatched (%s)" f))
-                     (throw (io-err (str "Error reading edn. " (.getMessage t) " (%s)") f)))))]
-    (if (specs/valid-deps? val)
-      val
-      (throw (io-err (str "Error reading deps %s. " (specs/explain-deps val)) f)))))
-
-;; all this canonicalization is deprecated and will eventually be removed
-
-(defn- canonicalize-sym
-  ([s]
-   (canonicalize-sym s nil))
-  ([s file-name]
-   (if (simple-symbol? s)
-     (let [cs (as-> (name s) n (symbol n n))]
-       (io/printerrln "DEPRECATED: Libs must be qualified, change" s "=>" cs
-         (if file-name (str "(" file-name ")") ""))
-       cs)
-     s)))
-
-(defn- canonicalize-exclusions
-  [{:keys [exclusions] :as coord} file-name]
-  (if (seq (filter simple-symbol? exclusions))
-    (assoc coord :exclusions (mapv #(canonicalize-sym % file-name) exclusions))
-    coord))
-
-(defn- canonicalize-dep-map
-  [deps-map file-name]
-  (when deps-map
-    (reduce-kv (fn [acc lib coord]
-                 (let [new-lib (if (simple-symbol? lib) (canonicalize-sym lib file-name) lib)
-                       new-coord (canonicalize-exclusions coord file-name)]
-                   (assoc acc new-lib new-coord)))
-      {} deps-map)))
-
-(defn- canonicalize-all-syms
-  ([deps-edn]
-   (canonicalize-all-syms deps-edn nil))
-  ([deps-edn file-name]
-   (walk/postwalk
-     (fn [x]
-       (if (map? x)
-         (reduce (fn [xr k]
-                   (if-let [xm (get xr k)]
-                     (assoc xr k (canonicalize-dep-map xm file-name))
-                     xr))
-           x #{:deps :default-deps :override-deps :extra-deps :classpath-overrides})
-         x))
-     deps-edn)))
+;;;; deps.edn reading - moved to clojure.tools.deps.edn
 
 (defn slurp-deps
-  "Read a single deps.edn file from disk and canonicalize symbols,
-  return a deps map. If the file doesn't exist, returns nil."
+  "DEPRECATED: use clojure.tools.deps.edn/read-deps"
+  {:deprecated "1.0"}
   [^File dep-file]
-  (when (.exists dep-file)
-    (-> dep-file slurp-edn-map (canonicalize-all-syms (.getPath dep-file)))))
+  (depsedn/read-deps dep-file))
 
 (defn root-deps
-  "Read the root deps.edn resource from the classpath at the path
-  clojure/tools/deps/deps.edn"
+  "DEPRECATED: Use clojure.tools.deps.edn/root-deps"
+  {:deprecated "1.0"}
   []
-  (let [url (jio/resource "clojure/tools/deps/deps.edn")]
-    (io/read-edn (BufferedReader. (InputStreamReader. (.openStream url))))))
+  (depsedn/root-deps))
 
 (defn user-deps-path
-  "Use the same logic as clj to calculate the location of the user deps.edn.
-  Note that it's possible no file may exist at this location."
+  "DEPRECATED: Use clojure.tools.deps.edn/user-deps-path"
+  {:deprecated "1.0"}
   []
-  (let [config-env (System/getenv "CLJ_CONFIG")
-        xdg-env (System/getenv "XDG_CONFIG_HOME")
-        home (System/getProperty "user.home")
-        config-dir (cond config-env config-env
-                         xdg-env (str xdg-env File/separator "clojure")
-                         :else (str home File/separator ".clojure"))]
-    (str config-dir File/separator "deps.edn")))
+  (depsedn/user-deps-path))
 
 (defn find-edn-maps
-  "Finds and returns standard deps edn maps in a map with keys
-    :root-edn, :user-edn, :project-edn
-  If no project-edn is supplied, use the deps.edn in current directory"
+  "DEPRECATED: Use clojure.tools.deps.edn/create-edn-maps (note api differs)"
+  {:deprecated "1.0"}
   ([]
    (find-edn-maps nil))
   ([project-edn-file]
-   (let [user-loc (jio/file (user-deps-path))
-         project-loc (jio/file (if project-edn-file project-edn-file (str dir/*the-dir* File/separator "deps.edn")))]
-     (cond-> {:root-edn (root-deps)}
-       (.exists user-loc) (assoc :user-edn (slurp-deps user-loc))
-       (.exists project-loc) (assoc :project-edn (slurp-deps project-loc))))))
+   (let [key-adapter {:root :root-edn, :user :user-edn, :project :project-edn}]
+     (-> (depsedn/create-edn-maps {:project project-edn-file})
+       (update-keys key-adapter)))))
 
-(defn- merge-or-replace
-  "If maps, merge, otherwise replace"
-  [& vals]
-  (when (some identity vals)
-    (reduce (fn [ret val]
-              (if (and (map? ret) (map? val))
-                (merge ret val)
-                (or val ret)))
-      nil vals)))
+(defn create-edn-maps
+  "DEPRECATED - use clojure.tools.deps.edn/create-edn-maps"
+  {:deprecated "1.0"}
+  [params]
+  (depsedn/create-edn-maps params))
 
 (defn merge-edns
-  "Merge multiple deps edn maps from left to right into a single deps edn map."
+  "DEPRECATED: Use clojure.tools.deps.edn/merge-edns"
+  {:deprecated "1.0"}
   [deps-edn-maps]
-  (apply merge-with merge-or-replace (remove nil? deps-edn-maps)))
+  (depsedn/merge-edns deps-edn-maps))
 
 ;;;; Aliases
 
-;; per-key binary merge-with rules
-
-(def ^:private last-wins (comp last #(remove nil? %) vector))
-(def ^:private append (comp vec concat))
-(def ^:private append-unique (comp vec distinct concat))
-
-(def ^:private merge-alias-rules
-  {:deps merge ;; FUTURE: remove
-   :replace-deps merge ;; formerly :deps
-   :extra-deps merge
-   :override-deps merge
-   :default-deps merge
-   :classpath-overrides merge
-   :paths append-unique ;; FUTURE: remove
-   :replace-paths append-unique ;; formerly :paths
-   :extra-paths append-unique
-   :jvm-opts append
-   :main-opts last-wins
-   :exec-fn last-wins
-   :exec-args merge-or-replace
-   :ns-aliases merge
-   :ns-default last-wins})
-
-(defn- choose-rule [alias-key val]
-  (or (merge-alias-rules alias-key)
-    (if (map? val)
-      merge
-      (fn [_v1 v2] v2))))
-
-(defn- merge-alias-maps
-  "Like merge-with, but using custom per-alias-key merge function"
-  [& ms]
-  (reduce
-    #(reduce
-       (fn [m [k v]] (update m k (choose-rule k v) v))
-       %1 %2)
-    {} ms))
-
 (defn combine-aliases
-  "Find, read, and combine alias maps identified by alias keywords from
-  a deps edn map into a single args map."
+  "DEPRECATED: Use clojure.tools.deps.edn/combine-aliases"
+  {:deprecated "1.0"}
   [edn-map alias-kws]
-  (->> alias-kws
-    (map #(get-in edn-map [:aliases %]))
-    (apply merge-alias-maps)))
+  (depsedn/combine-aliases edn-map alias-kws))
 
 (defn lib-location
   "Find the file path location of where a lib/coord would be located if procured
@@ -767,38 +650,6 @@
            cp (make-classpath-map merged-edn libs classpath-args)]
        (merge merged-edn {:libs libs} cp)))))
 
-;(defn runtime-basis
-;  "Load the runtime execution basis context and return it."
-;  []
-;  (when-let [f (jio/file (System/getProperty "clojure.basis"))]
-;    (if (and f (.exists f))
-;      {:basis (slurp-deps f)}
-;      (throw (IllegalArgumentException. "No basis declared in clojure.basis system property")))))
-
-(defn- choose-deps
-  [requested standard-fn]
-  (cond
-    (= :standard requested) (standard-fn)
-    (string? requested) (-> requested jio/file dir/canonicalize slurp-deps)
-    (or (nil? requested) (map? requested)) requested
-    :else (throw (ex-info (format "Unexpected dep source: %s" (pr-str requested))
-                   {:requested requested}))))
-
-(defn create-edn-maps
-  "Create a set of edn maps from the standard dep sources and return
-   them in a map with keys :root :user :project :extra"
-  [{:keys [root user project extra] :as params
-    :or {root :standard, user :standard, project :standard}}]
-  (let [root-edn (choose-deps root #(root-deps))
-        user-edn (choose-deps user #(-> (user-deps-path) jio/file dir/canonicalize slurp-deps))
-        project-edn (choose-deps project #(-> "deps.edn" jio/file dir/canonicalize slurp-deps))
-        extra-edn (choose-deps extra (constantly nil))]
-    (cond-> {}
-      root-edn (assoc :root root-edn)
-      user-edn (assoc :user user-edn)
-      project-edn (assoc :project project-edn)
-      extra-edn (assoc :extra extra-edn))))
-
 (defn create-basis
   "Create a basis from a set of deps sources and a set of aliases. By default, use
    root, user, and project deps and no argmaps (essentially the same classpath you get by
@@ -851,10 +702,10 @@
           argmap-data (->> aliases
                         (remove nil?)
                         (map #(get alias-data %)))
-          argmap (apply merge-alias-maps (concat argmap-data [args]))
+          argmap (apply depsedn/merge-alias-maps (concat argmap-data [args]))
 
           project-tooled-edn (tool project-edn argmap)
-          merged-edn (merge-edns [root-edn user-edn project-tooled-edn extra-edn])
+          merged-edn (depsedn/merge-edns [root-edn user-edn project-tooled-edn extra-edn])
           basis (if (:skip-cp argmap) ;; UNSUPPORTED, USE AT YOUR OWN RISK
                   (assoc merged-edn :argmap argmap)
                   (calc-basis merged-edn {:resolve-args argmap, :classpath-args argmap}))]

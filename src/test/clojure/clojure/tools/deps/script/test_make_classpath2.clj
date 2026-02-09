@@ -261,5 +261,5 @@
     (is (contains? (:libs basis) 'org.clojure/data.json))))
 
 (comment
-  (clojure.test/run-tests)
-)
+  (config-data-file)
+  (clojure.test/run-tests))

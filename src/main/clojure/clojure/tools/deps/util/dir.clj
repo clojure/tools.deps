@@ -6,8 +6,14 @@
 ;   the terms of this license.
 ;   You must not remove this notice, or any other, from this software.
 
-(ns ^{:skip-wiki true}
+(ns
   clojure.tools.deps.util.dir
+  "An abstraction for managing a 'current directory' stack.
+  The dynamic var `*the-dir*` holds the current directory.
+  Use `with-dir` to push a new absolute (or more usefully)
+  relative directory onto the stack, which will pop when the
+  scope exits. Use `canonical` to get the canonical File
+  of a path in terms of the current directory context."
   (:require
     [clojure.java.io :as jio])
   (:import

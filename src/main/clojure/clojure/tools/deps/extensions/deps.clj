@@ -10,7 +10,7 @@
   clojure.tools.deps.extensions.deps
   (:require
     [clojure.java.io :as jio]
-    [clojure.tools.deps :as deps]
+    [clojure.tools.deps.edn :as depsedn]
     [clojure.tools.deps.extensions :as ext]
     [clojure.tools.deps.util.dir :as dir]
     [clojure.tools.deps.util.io :as io]
@@ -26,8 +26,8 @@
     (session/retrieve
       {:deps :map :file (.getAbsolutePath f)} ;; session key
       #(if (.exists f)
-         (deps/merge-edns [(deps/root-deps) (deps/slurp-deps f)])
-         (deps/root-deps)))))
+         (depsedn/merge-edns [(depsedn/root-deps) (depsedn/read-deps f)])
+         (depsedn/root-deps)))))
 
 (defmethod ext/coord-deps :deps
   [_lib {:keys [deps/root] :as _coord} _mf config]

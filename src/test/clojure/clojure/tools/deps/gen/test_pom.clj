@@ -3,8 +3,8 @@
     [clojure.test :refer [deftest is]]
     [clojure.java.io :as jio]
     [clojure.string :as str]
-    [clojure.tools.deps.gen.pom :as gen-pom]
-    [clojure.tools.deps :as deps])
+    [clojure.tools.deps.edn :as depsedn]
+    [clojure.tools.deps.gen.pom :as gen-pom])
   (:import
     [java.io File]))
 
@@ -12,8 +12,8 @@
 (deftest test-pom-gen
   (let [temp-dir (.getParentFile (File/createTempFile "dummy" nil))
         pom (jio/file temp-dir "pom.xml")
-        {:keys [root-edn user-edn project-edn]} (deps/find-edn-maps)
-        master-edn (deps/merge-edns [root-edn user-edn project-edn])]
+        {:keys [root user project]} (depsedn/create-edn-maps)
+        master-edn (depsedn/merge-edns [root user project])]
     (.delete pom)
     (gen-pom/sync-pom master-edn temp-dir)
     (is (.exists pom))
@@ -37,7 +37,7 @@
         pom (jio/file temp-dir "pom.xml")]
     (.delete pom)
     (spit pom "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd\">\n  <modelVersion>4.0.0</modelVersion>\n  <groupId>foo</groupId>\n  <artifactId>foo</artifactId>\n  <version>0.1.0</version>\n  <name>foo</name>\n</project>")
-    (gen-pom/sync-pom (deps/root-deps) temp-dir)
+    (gen-pom/sync-pom (depsedn/root-deps) temp-dir)
     (let [new-pom (slurp pom)]
       (is (str/includes? new-pom "<build>"))
       (is (str/includes? new-pom "<sourceDirectory>src</sourceDirectory>")))))
