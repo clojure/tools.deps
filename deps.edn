@@ -1,7 +1,7 @@
 {:paths ["src/main/clojure" "src/main/resources"]
  :deps {
    org.clojure/clojure {:mvn/version "1.12.4"}
-   ;;org.clojure/tools.deps.edn {:local/root "../tools.deps.edn"}
+   org.clojure/tools.deps.edn {:mvn/version "0.9.13"}
    org.apache.maven.resolver/maven-resolver-api {:mvn/version "1.8.2"}
    org.apache.maven.resolver/maven-resolver-spi {:mvn/version "1.8.2" :exclusions [org.apache.commons/commons-lang3]}
      ;; override for CVE

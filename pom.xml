@@ -36,6 +36,11 @@
       <version>${clojure.version}</version>
     </dependency>
     <dependency>
+      <groupId>org.clojure</groupId>
+      <artifactId>tools.deps.edn</artifactId>
+      <version>0.9.13</version>
+    </dependency>
+    <dependency>
       <groupId>org.apache.maven.resolver</groupId>
       <artifactId>maven-resolver-api</artifactId>
       <version>${resolverVersion}</version>
