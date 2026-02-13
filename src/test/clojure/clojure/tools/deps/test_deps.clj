@@ -3,6 +3,7 @@
     [clojure.java.io :as jio]
     [clojure.test :refer [deftest is are testing]]
     [clojure.tools.deps :as deps]
+    [clojure.tools.deps.edn :as depsedn]
     [clojure.tools.deps.util :as util]
     [clojure.tools.deps.extensions :as ext]
     [clojure.tools.deps.extensions.faken :as fkn]
@@ -10,6 +11,27 @@
     [clojure.tools.deps.util.maven :as mvn])
   (:import
     [java.io File]))
+
+(deftest test-find-edn-maps
+  (let [edn-maps (deps/find-edn-maps)]
+    (is (util/submap?
+          {:root-edn (depsedn/root-deps)
+           :user-edn (depsedn/user-deps)
+           :project-edn {:paths ["src/main/clojure" "src/main/resources"]
+                         :deps {}}}
+          edn-maps)))
+
+  (let [deps-file (File/createTempFile "tmp" ".edn")
+        tmp-dir (.getParentFile deps-file)
+        deps {:paths ["x"]}]
+    (spit deps-file deps)
+    (dir/with-dir tmp-dir
+      (let [edn-maps (deps/find-edn-maps (.getCanonicalPath deps-file))]
+        (is (util/submap?
+              {:root-edn (depsedn/root-deps)
+               :user-edn (depsedn/user-deps)
+               :project-edn {:paths ["x"]}}
+              edn-maps))))))
 
 (def repo
   ;; "real"

@@ -53,7 +53,7 @@
    (find-edn-maps nil))
   ([project-edn-file]
    (let [key-adapter {:root :root-edn, :user :user-edn, :project :project-edn}]
-     (-> (depsedn/create-edn-maps {:project project-edn-file})
+     (-> (depsedn/create-edn-maps (when project-edn-file {:project project-edn-file}))
        (update-keys key-adapter)))))
 
 (defn create-edn-maps
