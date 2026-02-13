@@ -3,7 +3,7 @@ Changelog
 
 *Also see [Tools and installer changelog](https://github.com/clojure/brew-install/blob/1.12.4/CHANGELOG.md)*
 
-* next
+* 0.29.1593 on Feb 12, 2026
   * Fix (find-maps-edn nil) regression in 0.29.1587
 * 0.29.1587 on Feb 9, 2026
   * Move deps.edn file reading and merging to tools.deps.edn
