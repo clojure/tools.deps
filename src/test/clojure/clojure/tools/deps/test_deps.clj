@@ -16,7 +16,7 @@
   (let [edn-maps (deps/find-edn-maps)]
     (is (util/submap?
           {:root-edn (depsedn/root-deps)
-           :user-edn (depsedn/user-deps)
+           ;:user-edn (depsedn/user-deps)   ;; not necessarily present in CI
            :project-edn {:paths ["src/main/clojure" "src/main/resources"]
                          :deps {}}}
           edn-maps)))
@@ -29,7 +29,7 @@
       (let [edn-maps (deps/find-edn-maps (.getCanonicalPath deps-file))]
         (is (util/submap?
               {:root-edn (depsedn/root-deps)
-               :user-edn (depsedn/user-deps)
+               ;:user-edn (depsedn/user-deps)  ;; not necessarily present in CI
                :project-edn {:paths ["x"]}}
               edn-maps))))))
 
