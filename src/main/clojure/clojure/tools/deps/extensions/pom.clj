@@ -136,11 +136,11 @@
       (let [^Plugin plugin (first plugins)
             extract-dirs (fn [^Plugin plugin goal ^String children]
                            (->> (.getExecutions plugin)
-                             (filter (fn [^PluginExecution exec] (.contains ^List (.getGoals exec) goal)))
+                             (filter (fn [^PluginExecution exec]
+                                       (.contains ^List (.getGoals exec) goal)))
                              (mapcat (fn [^PluginExecution exec]
-                                       (let [^Xpp3Dom config (.getConfiguration exec)
-                                             ^Xpp3Dom sources (.getChild config children)]
-                                         (map #(.getValue ^Xpp3Dom %) (.getChildren sources)))))))]
+                                       (map #(.getValue ^Xpp3Dom %)
+                                         (some-> exec .getConfiguration (Xpp3Dom/.getChild children) Xpp3Dom/.getChildren))))))]
         (concat
           (extract-dirs plugin "add-source" "sources")
           (extract-dirs plugin "add-resource" "resources"))))))
