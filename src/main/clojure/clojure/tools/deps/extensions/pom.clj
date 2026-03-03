@@ -16,9 +16,9 @@
     [clojure.tools.deps.util.session :as session])
   (:import
     [java.io File]
-    [java.util Properties]
+    [java.util List Properties]
     ;; maven-model
-    [org.apache.maven.model Model Dependency Exclusion]
+    [org.apache.maven.model Model Dependency Exclusion Plugin PluginExecution]
     ;; maven-model-builder
     [org.apache.maven.model.building DefaultModelBuildingRequest DefaultModelBuilderFactory ModelSource FileModelSource]
     [org.apache.maven.model.resolution ModelResolver]
@@ -28,6 +28,8 @@
     [org.apache.maven.model Resource License]
     ;; maven-core
     [org.apache.maven.project ProjectModelResolver ProjectBuildingRequest$RepositoryMerging]
+    ;; plexus-utils
+    [org.codehaus.plexus.util.xml Xpp3Dom]
     ))
 
 (set! *warn-on-reflection* true)
@@ -99,29 +101,76 @@
         model (read-model-file pom config)]
     (model-deps model)))
 
+;; Leiningen (and others) use this plugin to attach additional source dirs when the lifecycle
+;; executes. To avoid executing (which has security and runtime issues), this function
+;; statically extracts those attached dirs from something like this:
+;;
+;;     <plugin>
+;;       <groupId>org.codehaus.mojo</groupId>
+;;       <artifactId>build-helper-maven-plugin</artifactId>
+;;       <version>1.7</version>
+;;       <executions>
+;;         <execution>
+;;          <id>add-source</id>
+;;            <phase>generate-sources</phase>
+;;           <goals>
+;;             <goal>add-source</goal>
+;;           </goals>
+;;           <configuration>
+;;             <sources>
+;;               <source>extra</source>  <!-- deps.edn can't see this otherwise -->
+;;             </sources>
+;;           </configuration>
+;;         </execution>
+;;       </executions>
+;;     </plugin>
+;; In addition, this code also includes add-resource goals including resources
+(defn- get-build-helper-paths
+  [^Model model]
+  (let [plugins (some-> model .getBuild .getPlugins)
+        build-helper-plugins (filter (fn [^Plugin plugin]
+                                       (and (= "org.codehaus.mojo" (.getGroupId plugin))
+                                         (= "build-helper-maven-plugin" (.getArtifactId plugin))))
+                               plugins)]
+    (when (not (empty? build-helper-plugins))
+      (let [^Plugin plugin (first plugins)
+            extract-dirs (fn [^Plugin plugin goal ^String children]
+                           (->> (.getExecutions plugin)
+                             (filter (fn [^PluginExecution exec] (.contains ^List (.getGoals exec) goal)))
+                             (mapcat (fn [^PluginExecution exec]
+                                       (let [^Xpp3Dom config (.getConfiguration exec)
+                                             ^Xpp3Dom sources (.getChild config children)]
+                                         (map #(.getValue ^Xpp3Dom %) (.getChildren sources)))))))]
+        (concat
+          (extract-dirs plugin "add-source" "sources")
+          (extract-dirs plugin "add-resource" "resources"))))))
+
 (defmethod ext/coord-paths :pom
   [lib {:keys [deps/root] :as _coord} _mf config]
-  (let [pom (jio/file root "pom.xml")
+  (let [relativize (fn [^String s]
+                     (let [f (jio/file s)]
+                       (if (.isAbsolute f)
+                         (.getCanonicalPath f)
+                         (.getCanonicalPath (jio/file root f)))))
+        pom (jio/file root "pom.xml")
         model (read-model-file pom config)
 
         ;; Maven core 3.8.2 returns an absolute directory here, which is a breaking regression
         ;; from previous versions (see https://issues.apache.org/jira/browse/MNG-7218).
         ;; Working around this with conditional code that deals with either absolute or relative.
-        ;; When MNG-7218 is fixed and deps bumped, might be able to revert the absolute path here.
+        ;; When MNG-7218 is fixed and deps bumped, might be able to revert the absolute path
+        ;; handling in relativize
         src-dir (jio/file (.. model getBuild getSourceDirectory))
-        src-path (if (.isAbsolute src-dir)
-                   (.getCanonicalPath src-dir)
-                   (.getCanonicalPath (jio/file root src-dir)))
 
-        srcs (into [src-path
-                    (.getCanonicalPath (jio/file root "src/main/clojure"))]
-                   (for [^Resource resource (.. model getBuild getResources)]
-                     (let [dir (jio/file (.getDirectory resource))]
-                       (when dir
-                         (if (.isAbsolute dir)
-                           (.getCanonicalPath dir)
-                           (.getCanonicalPath (jio/file root dir)))))))]
-    (->> srcs (remove nil?) distinct)))
+        resources (for [^Resource resource (.. model getBuild getResources)]
+                    (.getDirectory resource))
+
+        build-helper-srcs (get-build-helper-paths model)
+
+        srcs (concat [src-dir (.getCanonicalPath (jio/file root "src/main/clojure"))]
+               resources
+               build-helper-srcs)]
+    (->> srcs (remove nil?) (map relativize) distinct)))
 
 (defmethod ext/manifest-file :pom
   [_lib {:keys [deps/root] :as _coord} _mf _config]
