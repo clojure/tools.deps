@@ -3,7 +3,7 @@ Changelog
 
 *Also see [Tools and installer changelog](https://github.com/clojure/brew-install/blob/1.12.4/CHANGELOG.md)*
 
-* next
+* 0.30.1607 on May 12, 2026
   * Update to Clojure 1.12.5
   * Update to latest deps
   * Code clean up on TDEPS-276
