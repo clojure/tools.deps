@@ -21,9 +21,9 @@
   <properties>
     <!-- used for build -->
     <clojure.warnOnReflection>true</clojure.warnOnReflection>
-    <clojure.version>1.12.4</clojure.version>
+    <clojure.version>1.12.5</clojure.version>
     <resolverVersion>1.8.2</resolverVersion>
-    <mavenVersion>3.8.8</mavenVersion>
+    <mavenVersion>3.8.9</mavenVersion>
 
     <!-- default published in install deps.edn -->
     <clojure.default>1.12.2</clojure.default>
@@ -38,7 +38,7 @@
     <dependency>
       <groupId>org.clojure</groupId>
       <artifactId>tools.deps.edn</artifactId>
-      <version>0.9.22</version>
+      <version>0.9.27</version>
     </dependency>
     <dependency>
       <groupId>org.apache.maven.resolver</groupId>
@@ -55,7 +55,7 @@
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
-      <version>3.18.0</version>
+      <version>3.20.0</version>
     </dependency>
     <dependency>
       <groupId>org.apache.maven.resolver</groupId>
@@ -112,7 +112,7 @@
     <dependency>
       <groupId>org.clojure</groupId>
       <artifactId>data.xml</artifactId>
-      <version>0.2.0-alpha10</version>
+      <version>0.2.0-alpha11</version>
     </dependency>
     <dependency>
       <groupId>org.clojure</groupId>
@@ -122,12 +122,12 @@
     <dependency>
       <groupId>org.clojure</groupId>
       <artifactId>tools.cli</artifactId>
-      <version>1.3.250</version>
+      <version>1.4.256</version>
     </dependency>
     <dependency>
       <groupId>com.cognitect.aws</groupId>
       <artifactId>api</artifactId>
-      <version>0.8.762</version>
+      <version>0.8.824</version>
     </dependency>
     <dependency>
       <groupId>com.cognitect</groupId>
@@ -166,12 +166,12 @@
     <dependency>
       <groupId>com.cognitect.aws</groupId>
       <artifactId>endpoints</artifactId>
-      <version>871.2.32.21</version>
+      <version>871.2.44.4</version>
     </dependency>
     <dependency>
       <groupId>com.cognitect.aws</groupId>
       <artifactId>s3</artifactId>
-      <version>871.2.32.2</version>
+      <version>871.2.43.0</version>
     </dependency>
     <dependency>
       <groupId>javax.inject</groupId>

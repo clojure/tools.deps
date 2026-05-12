@@ -1,47 +1,47 @@
 {:paths ["src/main/clojure" "src/main/resources"]
  :deps {
-   org.clojure/clojure {:mvn/version "1.12.4"}
+   org.clojure/clojure {:mvn/version "1.12.5"}
    org.clojure/tools.deps.edn {:mvn/version "0.9.27"}
    org.apache.maven.resolver/maven-resolver-api {:mvn/version "1.8.2"}
    org.apache.maven.resolver/maven-resolver-spi {:mvn/version "1.8.2" :exclusions [org.apache.commons/commons-lang3]}
      ;; override for CVE
-     org.apache.commons/commons-lang3 {:mvn/version "3.18.0"}
+     org.apache.commons/commons-lang3 {:mvn/version "3.20.0"}
    org.apache.maven.resolver/maven-resolver-impl {:mvn/version "1.8.2"}
    org.apache.maven.resolver/maven-resolver-util {:mvn/version "1.8.2"}
    org.apache.maven.resolver/maven-resolver-connector-basic {:mvn/version "1.8.2"}
    org.apache.maven.resolver/maven-resolver-transport-file {:mvn/version "1.8.2"}
    org.apache.maven.resolver/maven-resolver-transport-http {:mvn/version "1.8.2"}
-   org.apache.maven/maven-resolver-provider {:mvn/version "3.8.8"}
+   org.apache.maven/maven-resolver-provider {:mvn/version "3.8.9"}
    ;; exclude due to CVE-2020-8908
-   org.apache.maven/maven-core {:mvn/version "3.8.8" :exclusions [com.google.guava/guava]}
-   org.clojure/data.xml {:mvn/version "0.2.0-alpha10"}
+   org.apache.maven/maven-core {:mvn/version "3.8.9" :exclusions [com.google.guava/guava]}
+   org.clojure/data.xml {:mvn/version "0.2.0-alpha11"}
    org.clojure/tools.gitlibs {:mvn/version "2.6.212"}
-   org.clojure/tools.cli {:mvn/version "1.3.250"}
-   com.cognitect.aws/api {:mvn/version "0.8.762"}
+   org.clojure/tools.cli {:mvn/version "1.4.256"}
+   com.cognitect.aws/api {:mvn/version "0.8.824"}
    ;; override jetty stuff under http-client for CVEs
    com.cognitect/http-client {:mvn/version "1.0.127" :exclusions [org.eclipse.jetty/jetty-http org.eclipse.jetty/jetty-client org.eclipse.jetty/jetty-util]}
      org.eclipse.jetty/jetty-http {:mvn/version "9.4.58.v20250814"}
      org.eclipse.jetty/jetty-client {:mvn/version "9.4.58.v20250814"}
      org.eclipse.jetty/jetty-util {:mvn/version "9.4.58.v20250814"}
-   com.cognitect.aws/endpoints {:mvn/version "871.2.32.21"}
-   com.cognitect.aws/s3 {:mvn/version "871.2.32.2"}
+   com.cognitect.aws/endpoints {:mvn/version "871.2.44.4"}
+   com.cognitect.aws/s3 {:mvn/version "871.2.43.0"}
    javax.inject/javax.inject {:mvn/version "1"}
  }
  :aliases {
    :test {:extra-paths ["src/test/clojure"]}
 
    ;; clj -M:lint
-   :lint {:replace-deps {clj-kondo/clj-kondo {:mvn/version "2025.07.28"}}
+   :lint {:replace-deps {clj-kondo/clj-kondo {:mvn/version "2026.04.15"}}
           :main-opts ["-m" "clj-kondo.main" "--lint" "src/main/clojure" "--lint" "src/test/clojure"]}
 
    ;; clj -M:cve
-   :cve {:extra-deps {io.github.clj-holmes/clj-watson {:git/tag "v6.0.1" :git/sha "b520351"}}
+   :cve {:extra-deps {io.github.clj-holmes/clj-watson {:git/tag "v6.1.0" :git/sha "be98e4d"}}
          :extra-paths [".clj-watson"]
          :jvm-opts ["--illegal-access=deny"]
          :main-opts ["-m" "clj-watson.cli" "scan" "-p" "deps.edn"]}
 
    ;; clj -M:outdated
-   :outdated {:extra-deps {com.github.liquidz/antq {:mvn/version "RELEASE"}}
+   :outdated {:extra-deps {com.github.liquidz/antq {:mvn/version "2.11.1276"}}
              :main-opts ["-m" "antq.core"]}
  }
 }
