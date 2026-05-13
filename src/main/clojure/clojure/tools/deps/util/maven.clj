@@ -207,6 +207,8 @@
   (^RepositorySystem []
    (make-system (make-locator)))
   (^RepositorySystem [^ServiceLocator locator]
+   (when-not (System/getProperty "aether.connector.userAgent")
+     (System/setProperty "aether.connector.userAgent" "tools.deps"))
    (.getService locator RepositorySystem)))
 
 (def ^TransferListener console-listener

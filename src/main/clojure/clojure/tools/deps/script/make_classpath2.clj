@@ -134,6 +134,8 @@
 (defn run
   "Run make-classpath script. See -main for details."
   [{:keys [cp-file jvm-file main-file basis-file manifest-file skip-cp tool-mode tool-name tool-aliases trace tree] :as opts}]
+  (when-let [user-agent (some-> "clojure/install/useragent.txt" jio/resource slurp)]
+    (System/setProperty "aether.connector.userAgent" user-agent))
   (let [opts' (cond-> opts
                 (and tool-mode (not tool-aliases))
                 (assoc :tool-data (when tool-name (resolve-tool-args tool-name))))
