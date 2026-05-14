@@ -3,7 +3,7 @@ Changelog
 
 *Also see [Tools and installer changelog](https://github.com/clojure/brew-install/blob/1.12.4/CHANGELOG.md)*
 
-* next
+* 0.30.1611 on May 13, 2026
   * TDEPS-279 Set aether.connector.userAgent to tools.deps if using as library, set to ClojureCLI for the CLI dep expansion
 * 0.30.1607 on May 12, 2026
   * Update to Clojure 1.12.5
