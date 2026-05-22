@@ -23,26 +23,25 @@
     [org.apache.maven.model.building DefaultModelBuildingRequest DefaultModelBuilderFactory ModelSource FileModelSource]
     [org.apache.maven.model.resolution ModelResolver]
     ;; maven-resolver-impl
-    [org.eclipse.aether.internal.impl DefaultRemoteRepositoryManager]
+    [org.eclipse.aether.impl RemoteRepositoryManager]
+    ;; mima mmr extension
+    [eu.maveniverse.maven.mima.extensions.mmr.internal ModelResolverImpl]
     ;; maven-model
     [org.apache.maven.model Resource License]
-    ;; maven-core
-    [org.apache.maven.project ProjectModelResolver ProjectBuildingRequest$RepositoryMerging]
     ;; plexus-utils
-    [org.codehaus.plexus.util.xml Xpp3Dom]
-    ))
+    [org.codehaus.plexus.util.xml Xpp3Dom]))
 
 (set! *warn-on-reflection* true)
 
 (defn- model-resolver
   ^ModelResolver [{:keys [mvn/repos mvn/local-repo]} settings]
   (let [local-repo (or local-repo @maven/cached-local-repo)
-        locator (maven/make-locator)
-        system (maven/make-system locator)
-        session (maven/make-session system settings local-repo)
-        repo-mgr (doto (DefaultRemoteRepositoryManager.) (.initService locator))
-        repos (maven/remote-repos repos settings)]
-    (ProjectModelResolver. session nil system repo-mgr repos ProjectBuildingRequest$RepositoryMerging/REQUEST_DOMINANT nil)))
+        context (maven/make-context local-repo settings)
+        system (.repositorySystem context)
+        session (.repositorySystemSession context)
+        repo-mgr ^RemoteRepositoryManager (.. context lookup (lookup RemoteRepositoryManager) (orElse nil))
+        repos (maven/remote-repos repos)]
+    (ModelResolverImpl. system session nil "project" repo-mgr repos)))
 
 (defn read-model
   ^Model [^ModelSource source config settings]
@@ -132,7 +131,7 @@
                                        (and (= "org.codehaus.mojo" (.getGroupId plugin))
                                          (= "build-helper-maven-plugin" (.getArtifactId plugin))))
                                plugins)]
-    (when (not (empty? build-helper-plugins))
+    (when (seq build-helper-plugins)
       (let [^Plugin plugin (first plugins)
             extract-dirs (fn [^Plugin plugin goal ^String children]
                            (->> (.getExecutions plugin)

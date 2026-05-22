@@ -12,7 +12,6 @@
     [clojure.java.io :as jio]
     [clojure.string :as str]
     [clojure.edn :as edn]
-    [clojure.tools.deps :as deps]
     [clojure.tools.deps.edn :as depsedn])
   (:import
     [java.io File]))

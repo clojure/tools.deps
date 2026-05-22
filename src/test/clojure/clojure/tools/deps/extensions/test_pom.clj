@@ -1,5 +1,5 @@
-(ns clojure.tools.deps.extensions.pom
-  (:require [clojure.test :refer :all]
+(ns clojure.tools.deps.extensions.test-pom
+  (:require [clojure.test :refer [deftest is]]
             [clojure.tools.deps.extensions :as ext]
             [clojure.tools.deps.extensions.maven]
             [clojure.tools.deps.extensions.pom]

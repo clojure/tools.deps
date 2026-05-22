@@ -22,11 +22,7 @@
     <!-- used for build -->
     <clojure.warnOnReflection>true</clojure.warnOnReflection>
     <clojure.version>1.12.5</clojure.version>
-    <resolverVersion>1.8.2</resolverVersion>
-    <mavenVersion>3.8.9</mavenVersion>
-
-    <!-- default published in install deps.edn -->
-    <clojure.default>1.12.2</clojure.default>
+    <mimaVersion>2.4.43</mimaVersion>
   </properties>
 
   <dependencies>
@@ -41,67 +37,31 @@
       <version>0.9.27</version>
     </dependency>
     <dependency>
-      <groupId>org.apache.maven.resolver</groupId>
-      <artifactId>maven-resolver-api</artifactId>
-      <version>${resolverVersion}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.apache.commons</groupId>
-          <artifactId>commons-lang3</artifactId>
-        </exclusion>
-      </exclusions>
+      <groupId>eu.maveniverse.maven.mima</groupId>
+      <artifactId>context</artifactId>
+      <version>${mimaVersion}</version>
+      <scope>compile</scope>
     </dependency>
-    <!-- override for cve -->
     <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-lang3</artifactId>
-      <version>3.20.0</version>
+      <groupId>eu.maveniverse.maven.mima.runtime</groupId>
+      <artifactId>standalone-static</artifactId>
+      <version>${mimaVersion}</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>eu.maveniverse.maven.mima.extensions</groupId>
+      <artifactId>mhc4</artifactId>
+      <version>${mimaVersion}</version>
+    </dependency>
+    <dependency>
+      <groupId>eu.maveniverse.maven.mima.extensions</groupId>
+      <artifactId>mmr</artifactId>
+      <version>${mimaVersion}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.maven.resolver</groupId>
       <artifactId>maven-resolver-spi</artifactId>
-      <version>${resolverVersion}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.maven.resolver</groupId>
-      <artifactId>maven-resolver-impl</artifactId>
-      <version>${resolverVersion}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.maven.resolver</groupId>
-      <artifactId>maven-resolver-util</artifactId>
-      <version>${resolverVersion}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.maven.resolver</groupId>
-      <artifactId>maven-resolver-connector-basic</artifactId>
-      <version>${resolverVersion}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.maven.resolver</groupId>
-      <artifactId>maven-resolver-transport-file</artifactId>
-      <version>${resolverVersion}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.maven.resolver</groupId>
-      <artifactId>maven-resolver-transport-http</artifactId>
-      <version>${resolverVersion}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.maven</groupId>
-      <artifactId>maven-resolver-provider</artifactId>
-      <version>${mavenVersion}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.maven</groupId>
-      <artifactId>maven-core</artifactId>
-      <version>${mavenVersion}</version>
-      <exclusions>
-        <exclusion> <!-- CVE-2020-8908 -->
-          <groupId>com.google.guava</groupId>
-          <artifactId>guava</artifactId>
-        </exclusion>
-      </exclusions>
+      <version>1.9.27</version>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
@@ -151,11 +111,6 @@
     <dependency> <!-- override for CVE fixes -->
       <groupId>org.eclipse.jetty</groupId>
       <artifactId>jetty-http</artifactId>
-      <version>9.4.58.v20250814</version>
-    </dependency>
-    <dependency> <!-- override for CVE fixes -->
-      <groupId>org.eclipse.jetty</groupId>
-      <artifactId>jetty-client</artifactId>
       <version>9.4.58.v20250814</version>
     </dependency>
     <dependency> <!-- override for CVE fixes -->

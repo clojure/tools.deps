@@ -15,7 +15,7 @@
     [clojure.tools.deps :as deps]
     [clojure.tools.deps.extensions :as ext]
     [clojure.tools.deps.tool :as tool]
-    [clojure.tools.deps.util.io :as io :refer [printerrln]]
+    [clojure.tools.deps.util.io :as io]
     [clojure.tools.deps.script.parse :as parse]
     [clojure.tools.deps.tree :as tree])
   (:import
@@ -58,7 +58,7 @@
   "Check that all aliases are known and warn if aliases are undeclared"
   [deps aliases]
   (when-let [unknown (seq (remove #(contains? (:aliases deps) %) (distinct aliases)))]
-    (printerrln "WARNING: Specified aliases are undeclared and are not being used:" (vec unknown))))
+    (io/printerrln "WARNING: Specified aliases are undeclared and are not being used:" (vec unknown))))
 
 (defn resolve-tool-args
   "Resolves the tool by name to the coord + usage data.
@@ -185,7 +185,7 @@
         (System/exit 1))
       (run options))
     (catch Throwable t
-      (printerrln "Error building classpath." (.getMessage t))
+      (io/printerrln "Error building classpath." (.getMessage t))
       (when-not (instance? IExceptionInfo t)
         (.printStackTrace t))
       (System/exit 1))))

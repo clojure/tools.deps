@@ -8,7 +8,6 @@
 
 (ns ^{:skip-wiki true}
   clojure.tools.deps.util.s3-transporter
-  (:refer-clojure :exclude [peek get])
   (:require
     [clojure.string :as str])
   (:import

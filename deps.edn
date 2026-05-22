@@ -2,18 +2,11 @@
  :deps {
    org.clojure/clojure {:mvn/version "1.12.5"}
    org.clojure/tools.deps.edn {:mvn/version "0.9.27"}
-   org.apache.maven.resolver/maven-resolver-api {:mvn/version "1.8.2"}
-   org.apache.maven.resolver/maven-resolver-spi {:mvn/version "1.8.2" :exclusions [org.apache.commons/commons-lang3]}
-     ;; override for CVE
-     org.apache.commons/commons-lang3 {:mvn/version "3.20.0"}
-   org.apache.maven.resolver/maven-resolver-impl {:mvn/version "1.8.2"}
-   org.apache.maven.resolver/maven-resolver-util {:mvn/version "1.8.2"}
-   org.apache.maven.resolver/maven-resolver-connector-basic {:mvn/version "1.8.2"}
-   org.apache.maven.resolver/maven-resolver-transport-file {:mvn/version "1.8.2"}
-   org.apache.maven.resolver/maven-resolver-transport-http {:mvn/version "1.8.2"}
-   org.apache.maven/maven-resolver-provider {:mvn/version "3.8.9"}
-   ;; exclude due to CVE-2020-8908
-   org.apache.maven/maven-core {:mvn/version "3.8.9" :exclusions [com.google.guava/guava]}
+   eu.maveniverse.maven.mima/context {:mvn/version "2.4.43"}
+   eu.maveniverse.maven.mima.runtime/standalone-static {:mvn/version "2.4.43"}
+   eu.maveniverse.maven.mima.extensions/mhc4 {:mvn/version "2.4.43"}
+   eu.maveniverse.maven.mima.extensions/mmr {:mvn/version "2.4.43"}
+   org.apache.maven.resolver/maven-resolver-spi {:mvn/version "1.9.27"}
    org.clojure/data.xml {:mvn/version "0.2.0-alpha11"}
    org.clojure/tools.gitlibs {:mvn/version "2.6.212"}
    org.clojure/tools.cli {:mvn/version "1.4.256"}

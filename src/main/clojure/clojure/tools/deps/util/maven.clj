@@ -14,45 +14,26 @@
     [clojure.tools.deps.util.io :refer [printerrln]]
     clojure.tools.deps.util.s3-transporter)
   (:import
+    [java.nio.file Paths]
+    [java.util HashMap Map]
+
+    ;; MIMA
+    [eu.maveniverse.maven.mima.context Context ContextOverrides Lookup]
+    [eu.maveniverse.maven.mima.runtime.standalonestatic
+     StandaloneStaticRuntime MemoizingRepositorySystemSupplierLookup]
+
     ;; maven-resolver-api
-    [org.eclipse.aether RepositorySystem RepositorySystemSession DefaultRepositoryCache DefaultRepositorySystemSession ConfigurationProperties]
+    [org.eclipse.aether RepositorySystem RepositorySystemSession]
     [org.eclipse.aether.artifact Artifact DefaultArtifact]
-    [org.eclipse.aether.repository LocalRepository Proxy RemoteRepository RemoteRepository$Builder RepositoryPolicy]
+    [org.eclipse.aether.repository LocalRepository RemoteRepository RemoteRepository$Builder RepositoryPolicy]
     [org.eclipse.aether.graph Dependency Exclusion]
     [org.eclipse.aether.transfer TransferListener TransferEvent]
 
-    ;; maven-resolver-spi
-    [org.eclipse.aether.spi.connector RepositoryConnectorFactory]
-    [org.eclipse.aether.spi.connector.transport TransporterFactory]
-    [org.eclipse.aether.spi.locator ServiceLocator]
-
-    ;; maven-resolver-impl
-    [org.eclipse.aether.impl DefaultServiceLocator]
-
-    ;; maven-resolver-connector-basic
-    [org.eclipse.aether.connector.basic BasicRepositoryConnectorFactory]
-
-    ;; maven-resolver-transport-file
-    [org.eclipse.aether.transport.file FileTransporterFactory]
-
-    ;; maven-resolver-transport-http
-    [org.eclipse.aether.transport.http HttpTransporterFactory]
-
-    ;; maven-aether-provider
-    [org.apache.maven.repository.internal MavenRepositorySystemUtils]
-
-    ;; maven-resolver-util
-    [org.eclipse.aether.util.repository AuthenticationBuilder DefaultProxySelector DefaultMirrorSelector]
-
-    ;; maven-core
-    [org.apache.maven.settings DefaultMavenSettingsBuilder Settings Server Mirror]
+    ;; maven-settings
+    [org.apache.maven.settings Settings]
 
     ;; maven-settings-builder
-    [org.apache.maven.settings.building DefaultSettingsBuilderFactory]
-
-    ;; plexus-utils
-    [org.codehaus.plexus.util.xml Xpp3Dom]))
-
+    [org.apache.maven.settings.building SettingsBuilder DefaultSettingsBuilderFactory DefaultSettingsBuildingRequest]))
 
 (set! *warn-on-reflection* true)
 
@@ -61,48 +42,14 @@
 (def standard-repos {"central" {:url "https://repo1.maven.org/maven2/"}
                      "clojars" {:url "https://repo.clojars.org/"}})
 
-(defn- set-settings-builder
-  [^DefaultMavenSettingsBuilder default-builder settings-builder]
-  (doto (.. default-builder getClass (getDeclaredField "settingsBuilder"))
-    (.setAccessible true)
-    (.set default-builder settings-builder)))
-
 (defn get-settings
   ^Settings []
-  (.buildSettings
-    (doto (DefaultMavenSettingsBuilder.)
-      (set-settings-builder (.newInstance (DefaultSettingsBuilderFactory.))))))
-
-(defn- select-mirror
-  ^RemoteRepository [^Settings settings ^RemoteRepository repo]
-  (let [mirrors (.getMirrors settings)
-        selector (DefaultMirrorSelector.)]
-    (run! (fn [^Mirror mirror] (.add selector
-                                 (.getId mirror)
-                                 (.getUrl mirror)
-                                 (.getLayout mirror)
-                                 false
-                                 (.getMirrorOf mirror)
-                                 (.getMirrorOfLayouts mirror)))
-      mirrors)
-    (.getMirror selector repo)))
-
-(defn- select-proxy
-  ^Proxy [^Settings settings ^RemoteRepository repo]
-  (->> (.getProxies settings)
-    (keep (fn [^org.apache.maven.settings.Proxy proxy-setting]
-            (when (.isActive proxy-setting)
-              (.. (DefaultProxySelector.)
-                (add (Proxy. (.getProtocol proxy-setting)
-                             (.getHost proxy-setting)
-                             (.getPort proxy-setting)
-                             (.. (AuthenticationBuilder.)
-                               (addUsername (.getUsername proxy-setting))
-                               (addPassword (.getPassword proxy-setting))
-                               build))
-                     (.getNonProxyHosts proxy-setting))
-                (getProxy repo)))))
-    first))
+  (let [^SettingsBuilder builder (.newInstance (DefaultSettingsBuilderFactory.))
+        request (DefaultSettingsBuildingRequest.)
+        user-settings (jio/file (System/getProperty "user.home") ".m2" "settings.xml")]
+    (when (.exists user-settings)
+      (.setUserSettingsFile request user-settings))
+    (.getEffectiveSettings (.build builder request))))
 
 (defn- repo-policy
   "Converts repo policy map to RepositoryPolicy.
@@ -128,41 +75,31 @@
                 :checksum checksum})))))
 
 (defn remote-repo
-  (^RemoteRepository [repo-entry]
-   (remote-repo repo-entry (get-settings)))
-  (^RemoteRepository [[^String name {:keys [url snapshots releases] :as repo-config}] ^Settings settings]
+  "Use 1-arity, settings no longer needed/used"
+  (^RemoteRepository [[^String name {:keys [url snapshots releases] :as repo-config}]]
    (when (and (str/starts-with? url "http:") (nil? (System/getenv "CLOJURE_CLI_ALLOW_HTTP_REPO")))
      (throw (ex-info (str "Invalid repo url (http not supported): " url) (or repo-config {}))))
-   (let [builder (RemoteRepository$Builder. name "default" url)
-         maybe-repo (.build builder)
-         mirror (select-mirror settings maybe-repo)
-         ^RemoteRepository remote-repo (or mirror maybe-repo)
-         proxy (select-proxy settings remote-repo)
-         server-id (.getId remote-repo)
-         ^Server server-setting (->> (.getServers settings) (filter #(= server-id (.getId ^Server %))) first)]
-     (->
-       (cond-> builder
-         snapshots (.setSnapshotPolicy (repo-policy name snapshots))
-         releases (.setReleasePolicy (repo-policy name releases))
-         mirror (.setUrl (.getUrl mirror))
-         server-setting (.setAuthentication
-                          (-> (AuthenticationBuilder.)
-                            (.addUsername (.getUsername server-setting))
-                            (.addPassword (.getPassword server-setting))
-                            (.addPrivateKey (.getPrivateKey server-setting) (.getPassphrase server-setting))
-                            (.build)))
-         proxy (.setProxy proxy))
-       (.build)))))
-
+   (let [builder (RemoteRepository$Builder. name "default" url)]
+     (cond-> builder
+       snapshots (.setSnapshotPolicy (repo-policy name snapshots))
+       releases (.setReleasePolicy (repo-policy name releases)))
+     (.build builder)))
+  (^RemoteRepository [repo-entry _settings]
+   ;; settings is no longer needed, the MIMA context does mirror/proxy/auth later.
+   ;; this arity is deprecated and here for backwards compatibility only.
+   (remote-repo repo-entry)))
 
 (defn remote-repos
-  ([repos]
-   (remote-repos repos (get-settings)))
-  ([{:strs [central clojars] :as repos} ^Settings settings]
+  "Use 1-arity, settings no longer needed or used"
+  ([{:strs [central clojars] :as repos}]
    ;; always return central, then clojars, then other repos
    (->> (concat [["central" central] ["clojars" clojars]] (dissoc repos "central" "clojars"))
      (remove (fn [[_name config]] (nil? config)))
-     (mapv #(remote-repo % settings)))))
+     (mapv remote-repo)))
+  ([repos _settings]
+   ;; settings is no longer needed, the MIMA context does mirror/proxy/auth later.
+   ;; this arity is deprecated and here for backwards compatibility only.
+   (remote-repos repos)))
 
 ;; Local repository
 
@@ -184,32 +121,7 @@
   ^LocalRepository [^String dir]
   (LocalRepository. dir))
 
-;; Maven system and session
-
-(defn make-locator
-  ^ServiceLocator []
-  (let [^DefaultServiceLocator loc
-        (doto (MavenRepositorySystemUtils/newServiceLocator)
-          (.addService RepositoryConnectorFactory BasicRepositoryConnectorFactory)
-          (.addService TransporterFactory FileTransporterFactory)
-          (.addService TransporterFactory HttpTransporterFactory))]
-    (try
-      (let [c (Class/forName "clojure.tools.deps.util.S3TransporterFactory")]
-        (.addService loc TransporterFactory c))
-      (catch ClassNotFoundException _
-        (printerrln "Warning: failed to load the S3TransporterFactory class")
-        loc))))
-
-(def the-locator
-  (delay (make-locator)))
-
-(defn make-system
-  (^RepositorySystem []
-   (make-system (make-locator)))
-  (^RepositorySystem [^ServiceLocator locator]
-   (when-not (System/getProperty "aether.connector.userAgent")
-     (System/setProperty "aether.connector.userAgent" "tools.deps"))
-   (.getService locator RepositorySystem)))
+;; Transfer listener
 
 (def ^TransferListener console-listener
   (reify TransferListener
@@ -229,31 +141,73 @@
     (transferProgressed [_ _event])
     (transferSucceeded [_ _event])))
 
-(defn add-server-config [^DefaultRepositorySystemSession session ^Server server]
-  (when-let [^Xpp3Dom configuration (.getConfiguration server)]
-    (when-let [^Xpp3Dom headers (.getChild configuration "httpHeaders")]
-      (.setConfigProperty session
-        (str ConfigurationProperties/HTTP_HEADERS "." (.getId server))
-        (into {}
-          (keep (fn [^Xpp3Dom header]
-                  (let [name (.getChild header "name")
-                        value (.getChild header "value")]
-                    (when (and name value)
-                      [(.getValue name) (.getValue value)]))))
-          (.getChildren headers "property"))))))
+;; MIMA runtime with S3 transporter wired in
+
+(defn- s3-transporter-factory
+  "Instantiate the S3 transporter factory, or nil if its class is unavailable."
+  []
+  (try
+    (let [c (Class/forName "clojure.tools.deps.util.S3TransporterFactory")
+          ctor (.getDeclaredConstructor c (into-array Class []))]
+      (.setAccessible ctor true)
+      (.newInstance ctor (into-array Object [])))
+    (catch ClassNotFoundException _
+      (printerrln "Warning: failed to load the S3TransporterFactory class")
+      nil)))
+
+(defn- make-supplier-lookup
+  "Returns a RepositorySystemSupplier that augments the default
+   transporter factories with the S3 transporter."
+  ^Lookup []
+  (let [s3-factory (s3-transporter-factory)]
+    (proxy [MemoizingRepositorySystemSupplierLookup] []
+      (getTransporterFactories [extractors]
+        (let [base ^Map (proxy-super getTransporterFactories extractors)
+              m (HashMap. ^Map base)]
+          (when s3-factory (.put m "s3" s3-factory))
+          m)))))
+
+(def ^:private the-runtime
+  (delay
+    (let [supplier-lookup (make-supplier-lookup)]
+      (proxy [StandaloneStaticRuntime] []
+        (createRepositorySystemLookup [_pre-boot]
+          supplier-lookup)))))
+
+;; MIMA context and session
+
+(defn make-context
+  "Build a MIMA Context. The Context bundles a RepositorySystem, a
+   RepositorySystemSession (with mirror/proxy/auth selectors configured from
+   settings.xml or the supplied Settings), and a Lookup for resolver components."
+  (^Context [& {:keys [settings local-repo]}]
+   (when-not (System/getProperty "aether.connector.userAgent")
+     (System/setProperty "aether.connector.userAgent" "tools.deps"))
+   (.create ^eu.maveniverse.maven.mima.context.Runtime @the-runtime
+     (.build
+       (cond-> (.withUserSettings (ContextOverrides/create) true)
+         settings (.withEffectiveSettings settings)
+         local-repo (.withLocalRepositoryOverride
+                      (Paths/get local-repo (into-array String []))))))))
+
+(defn make-system
+  "0-arity is deprecated, use: (make-system context)"
+  (^RepositorySystem []
+   (make-system (make-context)))
+  (^RepositorySystem [^Context context]
+   (.repositorySystem context)))
+
+(defn make-system-session
+  ^RepositorySystemSession [^Context context]
+  (.repositorySystemSession context))
 
 (defn make-session
-  (^RepositorySystemSession [^RepositorySystem system local-repo] ;; DEPRECATED
-   (make-session system (get-settings) local-repo))
-  (^RepositorySystemSession [^RepositorySystem system ^Settings settings local-repo]
-   (let [session (MavenRepositorySystemUtils/newSession)
-         local-repo-mgr (.newLocalRepositoryManager system session (make-local-repo local-repo))]
-     (.setLocalRepositoryManager session local-repo-mgr)
-     (.setTransferListener session console-listener)
-     (.setCache session (DefaultRepositoryCache.))
-     (doseq [^Server server (.getServers settings)]
-       (add-server-config session server))
-     session)))
+  "DEPRECATED: use make-system-session"
+  {:deprecated "1.0"}
+  (^RepositorySystemSession [_system local-repo] ;; DEPRECATED
+   (make-session nil nil local-repo))
+  (^RepositorySystemSession [_system settings local-repo]
+   (make-system-session (make-context :local-repo local-repo :settings settings))))
 
 (defn exclusions->data
   [exclusions]
