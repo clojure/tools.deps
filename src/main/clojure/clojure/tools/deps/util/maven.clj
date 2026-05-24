@@ -185,7 +185,9 @@
      (System/setProperty "aether.connector.userAgent" "tools.deps"))
    (.create ^eu.maveniverse.maven.mima.context.Runtime @the-runtime
      (.build
-       (cond-> (.withUserSettings (ContextOverrides/create) true)
+       (cond-> (-> (ContextOverrides/create)
+                 (.withUserSettings true)
+                 (.transferListener console-listener))
          settings (.withEffectiveSettings settings)
          local-repo (.withLocalRepositoryOverride
                       (Paths/get local-repo (into-array String []))))))))
