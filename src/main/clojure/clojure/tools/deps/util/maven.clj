@@ -141,38 +141,32 @@
     (transferProgressed [_ _event])
     (transferSucceeded [_ _event])))
 
-;; MIMA runtime with S3 transporter wired in
+;; MIMA runtime with S3 transporter wired in (only when the S3TransporterFactory
+;; Java class is on the classpath — tools.deps can be used as a git dep without
+;; Java compilation, in which case s3 transport is unavailable but everything
+;; else still works).
 
 (defn- s3-transporter-factory
   "Instantiate the S3 transporter factory, or nil if its class is unavailable."
   []
   (try
-    (let [c (Class/forName "clojure.tools.deps.util.S3TransporterFactory")
-          ctor (.getDeclaredConstructor c (into-array Class []))]
-      (.setAccessible ctor true)
-      (.newInstance ctor (into-array Object [])))
+    (let [c (Class/forName "clojure.tools.deps.util.S3TransporterFactory")]
+      (.newInstance (.getConstructor c (make-array Class 0)) (object-array 0)))
     (catch ClassNotFoundException _
       (printerrln "Warning: failed to load the S3TransporterFactory class")
       nil)))
 
-(defn- make-supplier-lookup
-  "Returns a RepositorySystemSupplier that augments the default
-   transporter factories with the S3 transporter."
-  ^Lookup []
-  (let [s3-factory (s3-transporter-factory)]
-    (proxy [MemoizingRepositorySystemSupplierLookup] []
-      (getTransporterFactories [extractors]
-        (let [base ^Map (proxy-super getTransporterFactories extractors)
-              m (HashMap. ^Map base)]
-          (when s3-factory (.put m "s3" s3-factory))
-          m)))))
-
 (def ^:private the-runtime
   (delay
-    (let [supplier-lookup (make-supplier-lookup)]
+    (if-let [s3-factory (s3-transporter-factory)]
       (proxy [StandaloneStaticRuntime] []
         (createRepositorySystemLookup [_pre-boot]
-          supplier-lookup)))))
+          (proxy [MemoizingRepositorySystemSupplierLookup] []
+            (getTransporterFactories [extractors]
+              (let [^Map base (proxy-super getTransporterFactories extractors)]
+                (doto (HashMap. base)
+                  (.put "s3" s3-factory)))))))
+      (StandaloneStaticRuntime.))))
 
 ;; MIMA context and session
 
