@@ -3,7 +3,7 @@ Changelog
 
 *Also see [Tools and installer changelog](https://github.com/clojure/brew-install/blob/1.12.4/CHANGELOG.md)*
 
-* next on May 27, 2026
+* 0.31.1624-alpha2 on May 27, 2026
   * Fix repository resolution to use mirrors, proxies, server auth
 * 0.31.1619-alpha1 on May 27, 2026
   * Switch to use MIMA (Mini Maven) framework
