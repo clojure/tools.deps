@@ -11,16 +11,13 @@
   (:require
     [clojure.java.io :as jio]
     [clojure.string :as str]
-    [clojure.tools.deps.util.io :refer [printerrln]]
-    clojure.tools.deps.util.s3-transporter)
+    [clojure.tools.deps.util.io :refer [printerrln]])
   (:import
     [java.nio.file Paths]
-    [java.util HashMap Map]
 
     ;; MIMA
-    [eu.maveniverse.maven.mima.context Context ContextOverrides Lookup]
-    [eu.maveniverse.maven.mima.runtime.standalonestatic
-     StandaloneStaticRuntime MemoizingRepositorySystemSupplierLookup]
+    [eu.maveniverse.maven.mima.context Context ContextOverrides Runtimes]
+    [eu.maveniverse.maven.mima.runtime.standalonestatic StandaloneStaticRuntime]
 
     ;; maven-resolver-api
     [org.eclipse.aether RepositorySystem RepositorySystemSession]
@@ -141,31 +138,29 @@
     (transferProgressed [_ _event])
     (transferSucceeded [_ _event])))
 
-;; MIMA runtime with S3 transporter wired in (only when the S3TransporterFactory
-;; Java class is on the classpath — tools.deps can be used as a git dep without
-;; Java compilation, in which case s3 transport is unavailable but everything
-;; else still works).
+;; MIMA runtime.
+;;
+;; The default StandaloneStaticRuntime ships only file + http transporters.
+;; The `org.clojure/tools.deps.maven-s3-transporter` artifact (if
+;; present on the classpath) registers a higher-precedence Runtime via SPI that
+;; also wires an `s3` transporter - this is done via a Java ServiceLoader.
+;;
+;; The s3 transporter uses cognitect.aws/api for s3 access, and that default
+;; http-client requires java.net.http.HttpClient (added in Java 11). So, the s3
+;; transporter runtime is only loaded when its present.
 
-(defn- s3-transporter-factory
-  "Instantiate the S3 transporter factory, or nil if its class is unavailable."
+(defn- http-client-available?
+  "Returns true if java.net.http.HttpClient is on the classpath."
   []
   (try
-    (let [c (Class/forName "clojure.tools.deps.util.S3TransporterFactory")]
-      (.newInstance (.getConstructor c (make-array Class 0)) (object-array 0)))
-    (catch ClassNotFoundException _
-      (printerrln "Warning: failed to load the S3TransporterFactory class")
-      nil)))
+    (Class/forName "java.net.http.HttpClient")
+    true
+    (catch ClassNotFoundException _ false)))
 
 (def ^:private the-runtime
   (delay
-    (if-let [s3-factory (s3-transporter-factory)]
-      (proxy [StandaloneStaticRuntime] []
-        (createRepositorySystemLookup [_pre-boot]
-          (proxy [MemoizingRepositorySystemSupplierLookup] []
-            (getTransporterFactories [extractors]
-              (let [^Map base (proxy-super getTransporterFactories extractors)]
-                (doto (HashMap. base)
-                  (.put "s3" s3-factory)))))))
+    (if (http-client-available?)
+      (.getRuntime Runtimes/INSTANCE)
       (StandaloneStaticRuntime.))))
 
 ;; MIMA context and session
