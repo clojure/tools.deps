@@ -87,16 +87,21 @@
    (remote-repo repo-entry)))
 
 (defn remote-repos
-  "Use 1-arity, settings no longer needed or used"
+  "Arities:
+    1 - will not resolve mirros, proxies, server auth!
+    2 - deprecated, same as 1 (and settings ignored)
+    3 - PREFERRED - pass system and session to resolve repos"
   ([{:strs [central clojars] :as repos}]
    ;; always return central, then clojars, then other repos
    (->> (concat [["central" central] ["clojars" clojars]] (dissoc repos "central" "clojars"))
      (remove (fn [[_name config]] (nil? config)))
      (mapv remote-repo)))
   ([repos _settings]
-   ;; settings is no longer needed, the MIMA context does mirror/proxy/auth later.
-   ;; this arity is deprecated and here for backwards compatibility only.
-   (remote-repos repos)))
+   ;; deprecated, settings not used
+   (remote-repos repos))
+  ([^RepositorySystem system ^RepositorySystemSession session repos]
+   ;; resolve against mirrors, proxies, auth
+   (.newResolutionRepositories system session (remote-repos repos))))
 
 ;; Local repository
 

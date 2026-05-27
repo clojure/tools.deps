@@ -40,7 +40,7 @@
         system (.repositorySystem context)
         session (.repositorySystemSession context)
         repo-mgr ^RemoteRepositoryManager (.. context lookup (lookup RemoteRepositoryManager) (orElse nil))
-        repos (maven/remote-repos repos)]
+        repos (maven/remote-repos system session repos)]
     (ModelResolverImpl. system session nil "project" repo-mgr repos)))
 
 (defn read-model
