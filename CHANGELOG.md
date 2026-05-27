@@ -3,6 +3,13 @@ Changelog
 
 *Also see [Tools and installer changelog](https://github.com/clojure/brew-install/blob/1.12.4/CHANGELOG.md)*
 
+* 0.31.1619-alpha1 on May 27, 2026
+  * Switch to use MIMA (Mini Maven) framework
+    * Internal SPI c.t.deps.util.maven has changed but public interface was preserved for existing tool dependents
+    * Removed manual processing of mirrors, proxies, and authed servers - that should now be handled by MIMA
+    * Moved S3 transporter to new lib tools.deps.maven-s3-transporter
+    * Dropped cognitect.http-client use by aws-api under maven-s3-transporter, now will use Java HTTPClient
+    * Conditionally load s3 transporter only when Java >= 11 (when HTTPClient was added)
 * 0.30.1611 on May 13, 2026
   * TDEPS-279 Set aether.connector.userAgent to tools.deps if using as library, set to ClojureCLI for the CLI dep expansion
 * 0.30.1607 on May 12, 2026
