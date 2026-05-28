@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>clojure.tools.deps - tools.deps 0.21.1468-SNAPSHOT API documentation</title>
+    <title>clojure.tools.deps - tools.deps 0.31.1625-SNAPSHOT API documentation</title>
     <link rel="icon" href="static/favicon.png" />
     <link rel="shortcut icon" href="static/favicon.png" />
     <link rel="stylesheet" href="static/clojure.css" type="text/css" media="all" />
@@ -25,7 +25,7 @@ namespace.
       <div id="leftcolumn"><div style="text-align: center;"></div>
 <div class="menu">
   <div class="WikiCustomNav WikiElement wiki">
-    <span class="toc-header"><span id="project-name">tools.deps</span> <span id="version">0.21.1468-SNAPSHOT</span> API</span><br />
+    <span class="toc-header"><span id="project-name">tools.deps</span> <span id="version">0.31.1625-SNAPSHOT</span> API</span><br />
     <ul>
       <li><a href="index.html" class="wiki_link">Overview</a></li>
       <li><a href="api-index.html" class="wiki_link">API Index</a></li>
@@ -54,58 +54,10 @@ namespace.
   </div><div class="toc-section" style="margin-left: 1em;">
     <a style="margin-top: 3px;" href="#var-section">Vars and Functions</a>
     <div class="toc-entry" style="margin-left: 1em;">
-      <a href="#clojure.tools.deps/calc-basis" class="toc-entry-anchor">calc-basis</a>
-      
-    </div><div class="toc-entry" style="margin-left: 1em;">
-      <a href="#clojure.tools.deps/combine-aliases" class="toc-entry-anchor">combine-aliases</a>
-      
-    </div><div class="toc-entry" style="margin-left: 1em;">
-      <a href="#clojure.tools.deps/create-basis" class="toc-entry-anchor">create-basis</a>
-      
-    </div><div class="toc-entry" style="margin-left: 1em;">
-      <a href="#clojure.tools.deps/create-edn-maps" class="toc-entry-anchor">create-edn-maps</a>
-      
-    </div><div class="toc-entry" style="margin-left: 1em;">
-      <a href="#clojure.tools.deps/find-edn-maps" class="toc-entry-anchor">find-edn-maps</a>
-      
-    </div><div class="toc-entry" style="margin-left: 1em;">
-      <a href="#clojure.tools.deps/find-latest-version" class="toc-entry-anchor">find-latest-version</a>
-      
-    </div><div class="toc-entry" style="margin-left: 1em;">
-      <a href="#clojure.tools.deps/join-classpath" class="toc-entry-anchor">join-classpath</a>
-      
-    </div><div class="toc-entry" style="margin-left: 1em;">
-      <a href="#clojure.tools.deps/lib-location" class="toc-entry-anchor">lib-location</a>
-      
-    </div><div class="toc-entry" style="margin-left: 1em;">
-      <a href="#clojure.tools.deps/make-classpath" class="toc-entry-anchor">make-classpath</a>
-      
-    </div><div class="toc-entry" style="margin-left: 1em;">
-      <a href="#clojure.tools.deps/make-classpath-map" class="toc-entry-anchor">make-classpath-map</a>
-      
-    </div><div class="toc-entry" style="margin-left: 1em;">
-      <a href="#clojure.tools.deps/merge-edns" class="toc-entry-anchor">merge-edns</a>
-      
-    </div><div class="toc-entry" style="margin-left: 1em;">
-      <a href="#clojure.tools.deps/prep-libs!" class="toc-entry-anchor">prep-libs!</a>
-      
-    </div><div class="toc-entry" style="margin-left: 1em;">
-      <a href="#clojure.tools.deps/print-tree" class="toc-entry-anchor">print-tree</a>
-      
-    </div><div class="toc-entry" style="margin-left: 1em;">
-      <a href="#clojure.tools.deps/resolve-added-libs" class="toc-entry-anchor">resolve-added-libs</a>
-      
-    </div><div class="toc-entry" style="margin-left: 1em;">
-      <a href="#clojure.tools.deps/resolve-deps" class="toc-entry-anchor">resolve-deps</a>
-      
-    </div><div class="toc-entry" style="margin-left: 1em;">
       <a href="#clojure.tools.deps/root-deps" class="toc-entry-anchor">root-deps</a>
       
     </div><div class="toc-entry" style="margin-left: 1em;">
       <a href="#clojure.tools.deps/slurp-deps" class="toc-entry-anchor">slurp-deps</a>
-      
-    </div><div class="toc-entry" style="margin-left: 1em;">
-      <a href="#clojure.tools.deps/tool" class="toc-entry-anchor">tool</a>
       
     </div><div class="toc-entry" style="margin-left: 1em;">
       <a href="#clojure.tools.deps/user-deps-path" class="toc-entry-anchor">user-deps-path</a>
@@ -114,6 +66,48 @@ namespace.
   </div><div class="toc-section" style="margin-left: 1em;">
     <a style="margin-top: 3px;" href="#"></a>
     
+  </div><div class="toc-section" style="margin-left: 1em;">
+    <a style="margin-top: 3px;" href="#clojure.tools.deps.edn">clojure.tools.deps.edn</a>
+    <div class="toc-entry" style="margin-left: 1em;">
+      <a href="#clojure.tools.deps.edn/canonicalize" class="toc-entry-anchor">canonicalize</a>
+      
+    </div><div class="toc-entry" style="margin-left: 1em;">
+      <a href="#clojure.tools.deps.edn/combine-aliases" class="toc-entry-anchor">combine-aliases</a>
+      
+    </div><div class="toc-entry" style="margin-left: 1em;">
+      <a href="#clojure.tools.deps.edn/create-edn-maps" class="toc-entry-anchor">create-edn-maps</a>
+      
+    </div><div class="toc-entry" style="margin-left: 1em;">
+      <a href="#clojure.tools.deps.edn/merge-alias-maps" class="toc-entry-anchor">merge-alias-maps</a>
+      
+    </div><div class="toc-entry" style="margin-left: 1em;">
+      <a href="#clojure.tools.deps.edn/merge-edns" class="toc-entry-anchor">merge-edns</a>
+      
+    </div><div class="toc-entry" style="margin-left: 1em;">
+      <a href="#clojure.tools.deps.edn/project-deps" class="toc-entry-anchor">project-deps</a>
+      
+    </div><div class="toc-entry" style="margin-left: 1em;">
+      <a href="#clojure.tools.deps.edn/project-deps-path" class="toc-entry-anchor">project-deps-path</a>
+      
+    </div><div class="toc-entry" style="margin-left: 1em;">
+      <a href="#clojure.tools.deps.edn/read-deps" class="toc-entry-anchor">read-deps</a>
+      
+    </div><div class="toc-entry" style="margin-left: 1em;">
+      <a href="#clojure.tools.deps.edn/read-edn" class="toc-entry-anchor">read-edn</a>
+      
+    </div><div class="toc-entry" style="margin-left: 1em;">
+      <a href="#clojure.tools.deps.edn/root-deps" class="toc-entry-anchor">root-deps</a>
+      
+    </div><div class="toc-entry" style="margin-left: 1em;">
+      <a href="#clojure.tools.deps.edn/user-deps" class="toc-entry-anchor">user-deps</a>
+      
+    </div><div class="toc-entry" style="margin-left: 1em;">
+      <a href="#clojure.tools.deps.edn/user-deps-path" class="toc-entry-anchor">user-deps-path</a>
+      
+    </div><div class="toc-entry" style="margin-left: 1em;">
+      <a href="#clojure.tools.deps.edn/validate" class="toc-entry-anchor">validate</a>
+      
+    </div>
   </div><div class="toc-section" style="margin-left: 1em;">
     <a style="margin-top: 3px;" href="#clojure.tools.deps.specs">clojure.tools.deps.specs</a>
     <div class="toc-entry" style="margin-left: 1em;">
@@ -237,27 +231,39 @@ namespace.
   </div><div class="toc-section" style="margin-left: 1em;">
     <a style="margin-top: 3px;" href="#clojure.tools.deps.tree">clojure.tools.deps.tree</a>
     <div class="toc-entry" style="margin-left: 1em;">
-      <a href="#clojure.tools.deps.tree/calc-trace" class="toc-entry-anchor">calc-trace</a>
-      
-    </div><div class="toc-entry" style="margin-left: 1em;">
-      <a href="#clojure.tools.deps.tree/print-tree" class="toc-entry-anchor">print-tree</a>
-      
-    </div><div class="toc-entry" style="margin-left: 1em;">
       <a href="#clojure.tools.deps.tree/trace-&gt;tree" class="toc-entry-anchor">trace-&gt;tree</a>
+      
+    </div>
+  </div><div class="toc-section" style="margin-left: 1em;">
+    <a style="margin-top: 3px;" href="#clojure.tools.deps.util.dir">clojure.tools.deps.util.dir</a>
+    <div class="toc-entry" style="margin-left: 1em;">
+      <a href="#clojure.tools.deps.util.dir/*the-dir*" class="toc-entry-anchor">*the-dir*</a>
+      
+    </div><div class="toc-entry" style="margin-left: 1em;">
+      <a href="#clojure.tools.deps.util.dir/canonicalize" class="toc-entry-anchor">canonicalize</a>
+      
+    </div><div class="toc-entry" style="margin-left: 1em;">
+      <a href="#clojure.tools.deps.util.dir/sub-path?" class="toc-entry-anchor">sub-path?</a>
+      
+    </div><div class="toc-entry" style="margin-left: 1em;">
+      <a href="#clojure.tools.deps.util.dir/with-dir" class="toc-entry-anchor">with-dir</a>
       
     </div>
   </div>
 </div>
 </div>
                 <div id="content-tag"><h1 id="overview">API for <span id="clojure.tools.deps">clojure.tools.deps</span>
-  - <span id="header-project">tools.deps</span> <span id="header-version">0.21.1468-SNAPSHOT</span><span id="header-status-block"> (<span id="header-status">in development</span>)</span>
+  - <span id="header-project">tools.deps</span> <span id="header-version">0.31.1625-SNAPSHOT</span><span id="header-status-block"> (<span id="header-status">in development</span>)</span>
   </h1>
 
 <br />Full namespace name: <span id="long-name">clojure.tools.deps</span>
 <p></p>
 <h2>Overview</h2>
 <div id="home-page">Project home page is <a href="https://github.com/clojure/tools.deps/">https://github.com/clojure/tools.deps/</a></div>
-<pre id="namespace-docstr"></pre>
+<pre id="namespace-docstr">API namespace for tools.deps. New dep types are defined via the multimethods
+in c.t.deps.extensions. This namespace auto-loads the built-in extensions for
+:mvn, :git, :local, etc. Most functions for reading, validating, and manipulating
+deps.edn data have been deprecated and moved to clojure.tools.deps.edn library.</pre>
 
 
 <br />
@@ -270,38 +276,74 @@ namespace.
   <div id="var-entry">
     <br />
     <hr />
-    <h2 id="clojure.tools.deps/calc-basis">calc-basis</h2>
+    <h2 id="clojure.tools.deps/root-deps">root-deps</h2>
     <span id="var-type">function</span><br />
-    <pre id="var-usage">Usage: (calc-basis merged-edn)
-       (calc-basis merged-edn {:keys [resolve-args classpath-args], :as argmaps})
+    <pre id="var-usage">Usage: (root-deps)
 </pre>
-    <pre id="var-docstr">Calculates and returns the runtime basis from a merged deps edn map, modifying
- resolve-deps and make-classpath args as needed.
-
-  merged-edn - a merged deps edn map
-  args - an optional map of arguments to constituent steps, keys:
-    :resolve-args - map of args to resolve-deps, with possible keys:
-      :extra-deps
-      :override-deps
-      :default-deps
-      :threads - number of threads to use during deps resolution
-      :trace - flag to record a trace log
-    :classpath-args - map of args to make-classpath-map, with possible keys:
-      :extra-paths
-      :classpath-overrides
-
-Returns the runtime basis, which is the initial deps edn map plus these keys:
-  :libs - lib map, per resolve-deps
-  :classpath - classpath map per make-classpath-map
-  :classpath-roots - vector of paths in classpath order</pre>
+    <pre id="var-docstr">DEPRECATED: Use clojure.tools.deps.edn/root-deps</pre>
     <pre id="var-specs"></pre>
     
-    
-    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/1540d7fdaf9f707aca5ee9c16199af280a772fd9/src/main/clojure/clojure/tools/deps.clj#L730">Source</a>
+    <span class="var-deprecated"><span id="content">Deprecated since tools.deps version 1.0</span><br /></span>
+    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/3cd9983cad995a7c67dc6b45707026d83f556ded/src/main/clojure/clojure/tools/deps.clj#L41">Source</a>
   </div><div id="var-entry">
     <br />
     <hr />
-    <h2 id="clojure.tools.deps/combine-aliases">combine-aliases</h2>
+    <h2 id="clojure.tools.deps/slurp-deps">slurp-deps</h2>
+    <span id="var-type">function</span><br />
+    <pre id="var-usage">Usage: (slurp-deps dep-file)
+</pre>
+    <pre id="var-docstr">DEPRECATED: use clojure.tools.deps.edn/read-deps</pre>
+    <pre id="var-specs"></pre>
+    
+    <span class="var-deprecated"><span id="content">Deprecated since tools.deps version 1.0</span><br /></span>
+    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/3cd9983cad995a7c67dc6b45707026d83f556ded/src/main/clojure/clojure/tools/deps.clj#L35">Source</a>
+  </div><div id="var-entry">
+    <br />
+    <hr />
+    <h2 id="clojure.tools.deps/user-deps-path">user-deps-path</h2>
+    <span id="var-type">function</span><br />
+    <pre id="var-usage">Usage: (user-deps-path)
+</pre>
+    <pre id="var-docstr">DEPRECATED: Use clojure.tools.deps.edn/user-deps-path</pre>
+    <pre id="var-specs"></pre>
+    
+    <span class="var-deprecated"><span id="content">Deprecated since tools.deps version 1.0</span><br /></span>
+    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/3cd9983cad995a7c67dc6b45707026d83f556ded/src/main/clojure/clojure/tools/deps.clj#L47">Source</a>
+  </div>
+</div>
+
+<br />
+<h2 id="clojure.tools.deps.edn">clojure.tools.deps.edn</h2>
+<pre id="namespace-docstr">Functions for reading, validating, and manipulating deps.edn
+files and data structures.</pre>
+
+
+<br />
+
+
+<div id="var-section">
+  <p></p>
+  <h2>Public Variables and Functions</h2>
+  <div id="var-entry">
+    <br />
+    <hr />
+    <h2 id="clojure.tools.deps.edn/canonicalize">canonicalize</h2>
+    <span id="var-type">function</span><br />
+    <pre id="var-usage">Usage: (canonicalize deps-edn &amp; opts)
+</pre>
+    <pre id="var-docstr">Canonicalize a deps.edn map (convert simple lib symbols to qualified lib symbols).
+Returns the deps-edn map.
+
+Opts:
+  :path String path to file being read</pre>
+    <pre id="var-specs"></pre>
+    
+    
+    
+  </div><div id="var-entry">
+    <br />
+    <hr />
+    <h2 id="clojure.tools.deps.edn/combine-aliases">combine-aliases</h2>
     <span id="var-type">function</span><br />
     <pre id="var-usage">Usage: (combine-aliases edn-map alias-kws)
 </pre>
@@ -310,175 +352,44 @@ a deps edn map into a single args map.</pre>
     <pre id="var-specs"></pre>
     
     
-    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/1540d7fdaf9f707aca5ee9c16199af280a772fd9/src/main/clojure/clojure/tools/deps.clj#L188">Source</a>
+    
   </div><div id="var-entry">
     <br />
     <hr />
-    <h2 id="clojure.tools.deps/create-basis">create-basis</h2>
+    <h2 id="clojure.tools.deps.edn/create-edn-maps">create-edn-maps</h2>
     <span id="var-type">function</span><br />
-    <pre id="var-usage">Usage: (create-basis {:keys [dir root user project extra aliases args], :as params})
+    <pre id="var-usage">Usage: (create-edn-maps)
+       (create-edn-maps {:keys [root user project extra], :as params, :or {root :standard, user :standard, project :standard}})
 </pre>
-    <pre id="var-docstr">Create a basis from a set of deps sources and a set of aliases. By default, use
-root, user, and project deps and no argmaps (essentially the same classpath you get by
-default from the Clojure CLI).
+    <pre id="var-docstr">Takes optional map of location sources, keys = :root :user :project :extra
+where each key may be:
+  :standard (default) - to get the default source
+  string - for file path to source, relative to current dir context
+  nil - to omit
+  map - a literal map to use
 
-Each dep source value can be :standard, a string path, a deps edn map, or nil.
-Sources are merged in the order - :root, :user, :project, :extra.
-
-When resolving deps and forming the classpath, different steps need various
-args. These are pulled from the 'argmap' which is a merged set of args
-selected by the aliases and optionally a map of args.
-
-Options:
-  :dir     - directory root path, defaults to current directory
-  :root    - dep source, default = :standard
-  :user    - dep source, default = :standard
-  :project - dep source, default = :standard ("deps.edn")
-  :extra   - dep source, default = nil
-  :aliases - coll of aliases, default = nil
-  :args    - extra map of argmap args, merged after aliases
-
-The following subprocess argmap args can be provided:
-  Key                  Subproc             Description
-  :replace-deps        tool                Replace project deps
-  :replace-paths       tool                Replace project paths
-  :extra-deps          resolve-deps        Add additional deps
-  :override-deps       resolve-deps        Override coord of dep
-  :default-deps        resolve-deps        Provide coord if missing
-  :extra-paths         make-classpath-map  Add additional paths
-  :classpath-overrides make-classpath-map  Replace lib path in cp
-
-Returns a runtime basis, which is the initial merged deps edn map plus these keys:
- :basis-config - the create-basis params used
- :argmap - effective argmap (after resolving and merging argmaps from aliases)
- :libs - lib map, per resolve-deps
- :classpath - classpath map per make-classpath-map
- :classpath-roots - vector of paths in classpath order</pre>
+Returns a set of deps edn maps with the same keys :root :user :project :extra.
+Keys may be missing if source was nil or file was missing.</pre>
     <pre id="var-specs"></pre>
     
     
-    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/1540d7fdaf9f707aca5ee9c16199af280a772fd9/src/main/clojure/clojure/tools/deps.clj#L790">Source</a>
+    
   </div><div id="var-entry">
     <br />
     <hr />
-    <h2 id="clojure.tools.deps/create-edn-maps">create-edn-maps</h2>
+    <h2 id="clojure.tools.deps.edn/merge-alias-maps">merge-alias-maps</h2>
     <span id="var-type">function</span><br />
-    <pre id="var-usage">Usage: (create-edn-maps {:keys [root user project extra], :as params, :or {root :standard, user :standard, project :standard}})
+    <pre id="var-usage">Usage: (merge-alias-maps &amp; ms)
 </pre>
-    <pre id="var-docstr">Create a set of edn maps from the standard dep sources and return
-them in a map with keys :root :user :project :extra</pre>
+    <pre id="var-docstr">Like merge-with, but using custom per-alias-key merge function</pre>
     <pre id="var-specs"></pre>
     
     
-    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/1540d7fdaf9f707aca5ee9c16199af280a772fd9/src/main/clojure/clojure/tools/deps.clj#L775">Source</a>
+    
   </div><div id="var-entry">
     <br />
     <hr />
-    <h2 id="clojure.tools.deps/find-edn-maps">find-edn-maps</h2>
-    <span id="var-type">function</span><br />
-    <pre id="var-usage">Usage: (find-edn-maps)
-       (find-edn-maps project-edn-file)
-</pre>
-    <pre id="var-docstr">Finds and returns standard deps edn maps in a map with keys
-  :root-edn, :user-edn, :project-edn
-If no project-edn is supplied, use the deps.edn in current directory</pre>
-    <pre id="var-specs"></pre>
-    
-    
-    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/1540d7fdaf9f707aca5ee9c16199af280a772fd9/src/main/clojure/clojure/tools/deps.clj#L120">Source</a>
-  </div><div id="var-entry">
-    <br />
-    <hr />
-    <h2 id="clojure.tools.deps/find-latest-version">find-latest-version</h2>
-    <span id="var-type">function</span><br />
-    <pre id="var-usage">Usage: (find-latest-version {:keys [lib procurer]})
-</pre>
-    <pre id="var-docstr">Find versions of lib across all registered procurer types, and return
-latest version of coord from the first procurer type that has any coords,
-starting with :mvn, then :git. If none are found, return nil.</pre>
-    <pre id="var-specs"></pre>
-    
-    
-    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/1540d7fdaf9f707aca5ee9c16199af280a772fd9/src/main/clojure/clojure/tools/deps.clj#L883">Source</a>
-  </div><div id="var-entry">
-    <br />
-    <hr />
-    <h2 id="clojure.tools.deps/join-classpath">join-classpath</h2>
-    <span id="var-type">function</span><br />
-    <pre id="var-usage">Usage: (join-classpath roots)
-</pre>
-    <pre id="var-docstr">Takes a coll of string classpath roots and creates a platform sensitive classpath</pre>
-    <pre id="var-specs"></pre>
-    
-    
-    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/1540d7fdaf9f707aca5ee9c16199af280a772fd9/src/main/clojure/clojure/tools/deps.clj#L613">Source</a>
-  </div><div id="var-entry">
-    <br />
-    <hr />
-    <h2 id="clojure.tools.deps/lib-location">lib-location</h2>
-    <span id="var-type">function</span><br />
-    <pre id="var-usage">Usage: (lib-location lib coord deps-config)
-</pre>
-    <pre id="var-docstr">Find the file path location of where a lib/coord would be located if procured
-without actually doing the procuring!</pre>
-    <pre id="var-specs"></pre>
-    
-    
-    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/1540d7fdaf9f707aca5ee9c16199af280a772fd9/src/main/clojure/clojure/tools/deps.clj#L196">Source</a>
-  </div><div id="var-entry">
-    <br />
-    <hr />
-    <h2 id="clojure.tools.deps/make-classpath">make-classpath</h2>
-    <span id="var-type">function</span><br />
-    <pre id="var-usage">Usage: (make-classpath lib-map paths classpath-args)
-</pre>
-    <pre id="var-docstr">Takes a lib map, and a set of explicit paths. Extracts the paths for each chosen
-lib coordinate, and assembles a classpath string using the system path separator.
-The classpath-args is a map with keys that can be used to modify the classpath
-building operation:
-
-  :extra-paths - extra classpath paths to add to the classpath
-  :classpath-overrides - a map of lib to path, where path is used instead of the coord's paths
-
-Returns the classpath as a string.</pre>
-    <pre id="var-specs">Specs:
-  Args: (cat
-         :libs :clojure.tools.deps.specs/lib-map
-         :paths :clojure.tools.deps.specs/paths
-         :classpath-args :clojure.tools.deps.specs/classpath-args)
-  Ret:  string?</pre>
-    
-    <span class="var-deprecated"><span id="content">Deprecated since tools.deps version 0.9.745</span><br /></span>
-    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/1540d7fdaf9f707aca5ee9c16199af280a772fd9/src/main/clojure/clojure/tools/deps.clj#L618">Source</a>
-  </div><div id="var-entry">
-    <br />
-    <hr />
-    <h2 id="clojure.tools.deps/make-classpath-map">make-classpath-map</h2>
-    <span id="var-type">function</span><br />
-    <pre id="var-usage">Usage: (make-classpath-map deps-edn-map lib-map classpath-args)
-</pre>
-    <pre id="var-docstr">Takes a merged deps edn map and a lib map. Extracts the paths for each chosen
-lib coordinate, and assembles a classpath map. The classpath-args is a map with
-keys that can be used to modify the classpath building operation:
-  :extra-paths - extra classpath paths to add to the classpath
-  :classpath-overrides - a map of lib to path, where path is used instead of the coord's paths
-
-Returns a map:
-  :classpath map of path entry (string) to a map describing where its from,  either a :lib-name or :path-key entry.
-  :classpath-roots coll of the classpath keys in classpath order</pre>
-    <pre id="var-specs">Specs:
-  Args: (cat
-         :deps :clojure.tools.deps.specs/deps-map
-         :libs :clojure.tools.deps.specs/lib-map
-         :classpath-args :clojure.tools.deps.specs/classpath-args)
-  Ret:  map?</pre>
-    
-    
-    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/1540d7fdaf9f707aca5ee9c16199af280a772fd9/src/main/clojure/clojure/tools/deps.clj#L594">Source</a>
-  </div><div id="var-entry">
-    <br />
-    <hr />
-    <h2 id="clojure.tools.deps/merge-edns">merge-edns</h2>
+    <h2 id="clojure.tools.deps.edn/merge-edns">merge-edns</h2>
     <span id="var-type">function</span><br />
     <pre id="var-usage">Usage: (merge-edns deps-edn-maps)
 </pre>
@@ -486,97 +397,75 @@ Returns a map:
     <pre id="var-specs"></pre>
     
     
-    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/1540d7fdaf9f707aca5ee9c16199af280a772fd9/src/main/clojure/clojure/tools/deps.clj#L143">Source</a>
+    
   </div><div id="var-entry">
     <br />
     <hr />
-    <h2 id="clojure.tools.deps/prep-libs!">prep-libs!</h2>
+    <h2 id="clojure.tools.deps.edn/project-deps">project-deps</h2>
     <span id="var-type">function</span><br />
-    <pre id="var-usage">Usage: (prep-libs! lib-map {:keys [action current log], :or {current false}} config)
+    <pre id="var-usage">Usage: (project-deps)
 </pre>
-    <pre id="var-docstr">Takes a lib map and looks for unprepped libs, optionally prepping them.
+    <pre id="var-docstr">Calculate the project deps.edn location, read and return the deps.edn data.
 
-Options:
-  :action - what to do when an unprepped lib is found, one of:
-              :prep - if unprepped, prep
-              :force - prep regardless of whether already prepped
-              :error (default) - don't prep, error
-  :current - boolean, default = false. Whether to prep current project
-  :log -  print to console based on log level (default, no logging):
-            :info  - print only when prepping
-            :debug - :info + print for each lib considered</pre>
+You may use clojure.tools.deps.util.dir/with-dir to read from a custom project
+dir, either absolute or relative to the current dir context.</pre>
     <pre id="var-specs"></pre>
     
     
-    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/1540d7fdaf9f707aca5ee9c16199af280a772fd9/src/main/clojure/clojure/tools/deps.clj#L680">Source</a>
+    
   </div><div id="var-entry">
     <br />
     <hr />
-    <h2 id="clojure.tools.deps/print-tree">print-tree</h2>
+    <h2 id="clojure.tools.deps.edn/project-deps-path">project-deps-path</h2>
     <span id="var-type">function</span><br />
-    <pre id="var-usage">Usage: (print-tree lib-map)
+    <pre id="var-usage">Usage: (project-deps-path)
 </pre>
-    <pre id="var-docstr">Print lib-map tree to the console</pre>
+    <pre id="var-docstr">Calculate the project deps.edn location. This
+is the deps.edn in the current directory, as defined by
+clojure.tools.deps.util.dir/*the-dir* - use with-dir
+to push a new local directory context around a call to
+project-deps-path.</pre>
     <pre id="var-specs"></pre>
     
     
-    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/1540d7fdaf9f707aca5ee9c16199af280a772fd9/src/main/clojure/clojure/tools/deps.clj#L522">Source</a>
+    
   </div><div id="var-entry">
     <br />
     <hr />
-    <h2 id="clojure.tools.deps/resolve-added-libs">resolve-added-libs</h2>
+    <h2 id="clojure.tools.deps.edn/read-deps">read-deps</h2>
     <span id="var-type">function</span><br />
-    <pre id="var-usage">Usage: (resolve-added-libs {:keys [existing add procurer]})
+    <pre id="var-usage">Usage: (read-deps f &amp; opts)
 </pre>
-    <pre id="var-docstr">Given an existing map of current libs and a map of libs to add,
-resolve and download the transitive set of libs that fulfill the
-added libs and/or detect libs that conflict with the existing libs.
-Results are printed as edn.
+    <pre id="var-docstr">Corece f to a file with jio/file, then read, validate, and canonicalize
+the deps.edn. This is the primary entry point for reading.
+Use read-edn, validate, or canonicalize for individual steps.
 
-Keys in input map:
-  :existing - map of current lib to coord
-  :add - map of lib to coords to add
-  :procurer - procurer config from basis, if any
-
-Returns a map of:
-  :added - map of added libs to resolved coords (has :paths)
-  :conflict - coll of requested libs that conflict with existing libs</pre>
+Opts: none for now</pre>
     <pre id="var-specs"></pre>
     
     
-    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/1540d7fdaf9f707aca5ee9c16199af280a772fd9/src/main/clojure/clojure/tools/deps.clj#L852">Source</a>
+    
   </div><div id="var-entry">
     <br />
     <hr />
-    <h2 id="clojure.tools.deps/resolve-deps">resolve-deps</h2>
+    <h2 id="clojure.tools.deps.edn/read-edn">read-edn</h2>
     <span id="var-type">function</span><br />
-    <pre id="var-usage">Usage: (resolve-deps deps-map args-map)
+    <pre id="var-usage">Usage: (read-edn r &amp; opts)
 </pre>
-    <pre id="var-docstr">Takes a deps configuration map and resolves the transitive dependency graph
-from the initial set of deps. args-map is a map with several keys (all
-optional) that can modify the results of the transitive expansion:
+    <pre id="var-docstr">Read edn from Reader r, which should contain exactly one edn value.
+If source exists but is blank, nil is returned.
+Throws if source is unreadable or contains multiple values.
 
-  :extra-deps - a map from lib to coord of deps to add to the main deps
-  :override-deps - a map from lib to coord of coord to use instead of those in the graph
-  :default-deps - a map from lib to coord of deps to use if no coord specified
-  :trace - boolean. If true, the returned lib map will have metadata with :trace log
-  :threads - long. If provided, sets the number of concurrent download threads
-
-Returns a lib map (map of lib to coordinate chosen).</pre>
-    <pre id="var-specs">Specs:
-  Args: (cat
-         :deps :clojure.tools.deps.specs/deps-map
-         :options :clojure.tools.deps.specs/resolve-args)
-  Ret:  (map-of
-          :clojure.tools.deps.specs/lib
-          :clojure.tools.deps.specs/resolved-coord)</pre>
+Opts:
+  :path String path to file being read, for error reporting</pre>
+    <pre id="var-specs"></pre>
     
     
-    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/1540d7fdaf9f707aca5ee9c16199af280a772fd9/src/main/clojure/clojure/tools/deps.clj#L479">Source</a>
+    
   </div><div id="var-entry">
     <br />
     <hr />
-    <h2 id="clojure.tools.deps/root-deps">root-deps</h2>
+    <h2 id="clojure.tools.deps.edn/root-deps">root-deps</h2>
     <span id="var-type">function</span><br />
     <pre id="var-usage">Usage: (root-deps)
 </pre>
@@ -585,38 +474,24 @@ clojure/tools/deps/deps.edn</pre>
     <pre id="var-specs"></pre>
     
     
-    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/1540d7fdaf9f707aca5ee9c16199af280a772fd9/src/main/clojure/clojure/tools/deps.clj#L101">Source</a>
+    
   </div><div id="var-entry">
     <br />
     <hr />
-    <h2 id="clojure.tools.deps/slurp-deps">slurp-deps</h2>
+    <h2 id="clojure.tools.deps.edn/user-deps">user-deps</h2>
     <span id="var-type">function</span><br />
-    <pre id="var-usage">Usage: (slurp-deps dep-file)
+    <pre id="var-usage">Usage: (user-deps)
 </pre>
-    <pre id="var-docstr">Read a single deps.edn file from disk and canonicalize symbols,
-return a deps map. If the file doesn't exist, returns nil.</pre>
+    <pre id="var-docstr">Calculate the user deps.edn per user-deps-path, read and
+return the deps.edn data</pre>
     <pre id="var-specs"></pre>
     
     
-    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/1540d7fdaf9f707aca5ee9c16199af280a772fd9/src/main/clojure/clojure/tools/deps.clj#L94">Source</a>
+    
   </div><div id="var-entry">
     <br />
     <hr />
-    <h2 id="clojure.tools.deps/tool">tool</h2>
-    <span id="var-type">function</span><br />
-    <pre id="var-usage">Usage: (tool project-edn tool-args)
-</pre>
-    <pre id="var-docstr">Replaces project-edn :deps and :paths with tool :deps and :paths
-and returns a new project-edn map.
-(Also supports :replace-deps and :replace-paths as aliases.)</pre>
-    <pre id="var-specs"></pre>
-    
-    
-    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/1540d7fdaf9f707aca5ee9c16199af280a772fd9/src/main/clojure/clojure/tools/deps.clj#L632">Source</a>
-  </div><div id="var-entry">
-    <br />
-    <hr />
-    <h2 id="clojure.tools.deps/user-deps-path">user-deps-path</h2>
+    <h2 id="clojure.tools.deps.edn/user-deps-path">user-deps-path</h2>
     <span id="var-type">function</span><br />
     <pre id="var-usage">Usage: (user-deps-path)
 </pre>
@@ -625,7 +500,23 @@ Note that it's possible no file may exist at this location.</pre>
     <pre id="var-specs"></pre>
     
     
-    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/1540d7fdaf9f707aca5ee9c16199af280a772fd9/src/main/clojure/clojure/tools/deps.clj#L108">Source</a>
+    
+  </div><div id="var-entry">
+    <br />
+    <hr />
+    <h2 id="clojure.tools.deps.edn/validate">validate</h2>
+    <span id="var-type">function</span><br />
+    <pre id="var-usage">Usage: (validate deps-edn &amp; opts)
+</pre>
+    <pre id="var-docstr">Validate a deps-edn map according to the specs, throw if invalid.
+Returns the deps-edn map.
+
+Opts:
+  :path String path to file being read</pre>
+    <pre id="var-specs"></pre>
+    
+    
+    
   </div>
 </div>
 
@@ -652,7 +543,7 @@ for an error message</pre>
     <pre id="var-specs"></pre>
     
     
-    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/f71924e66a2561a8b22940d3dd52f08ef34e20ea/src/main/clojure/clojure/tools/deps/specs.clj#L131">Source</a>
+    
   </div><div id="var-entry">
     <br />
     <hr />
@@ -664,7 +555,7 @@ for an error message</pre>
     <pre id="var-specs"></pre>
     
     
-    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/f71924e66a2561a8b22940d3dd52f08ef34e20ea/src/main/clojure/clojure/tools/deps/specs.clj#L126">Source</a>
+    
   </div>
 </div>
 <div id="spec-section">
@@ -863,7 +754,8 @@ for an error message</pre>
 </div>
 <br />
 <h2 id="clojure.tools.deps.tool">clojure.tools.deps.tool</h2>
-<pre id="namespace-docstr"></pre>
+<pre id="namespace-docstr">API for managing CLI tools. This code may eventually move out of tools.deps
+and into the CLI code base as it is specific to the CLI.</pre>
 
 
 <br />
@@ -883,7 +775,7 @@ for an error message</pre>
     <pre id="var-specs"></pre>
     
     
-    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/ab2ca6bdd352cf434973e7f869487f2ddf2d4a3a/src/main/clojure/clojure/tools/deps/tool.clj#L29">Source</a>
+    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/3cd9983cad995a7c67dc6b45707026d83f556ded/src/main/clojure/clojure/tools/deps/tool.clj#L31">Source</a>
   </div><div id="var-entry">
     <br />
     <hr />
@@ -895,7 +787,7 @@ for an error message</pre>
     <pre id="var-specs"></pre>
     
     
-    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/ab2ca6bdd352cf434973e7f869487f2ddf2d4a3a/src/main/clojure/clojure/tools/deps/tool.clj#L69">Source</a>
+    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/3cd9983cad995a7c67dc6b45707026d83f556ded/src/main/clojure/clojure/tools/deps/tool.clj#L71">Source</a>
   </div><div id="var-entry">
     <br />
     <hr />
@@ -907,7 +799,7 @@ for an error message</pre>
     <pre id="var-specs"></pre>
     
     
-    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/ab2ca6bdd352cf434973e7f869487f2ddf2d4a3a/src/main/clojure/clojure/tools/deps/tool.clj#L79">Source</a>
+    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/3cd9983cad995a7c67dc6b45707026d83f556ded/src/main/clojure/clojure/tools/deps/tool.clj#L81">Source</a>
   </div><div id="var-entry">
     <br />
     <hr />
@@ -922,7 +814,7 @@ Or nil if unknown.</pre>
     <pre id="var-specs"></pre>
     
     
-    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/ab2ca6bdd352cf434973e7f869487f2ddf2d4a3a/src/main/clojure/clojure/tools/deps/tool.clj#L47">Source</a>
+    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/3cd9983cad995a7c67dc6b45707026d83f556ded/src/main/clojure/clojure/tools/deps/tool.clj#L49">Source</a>
   </div><div id="var-entry">
     <br />
     <hr />
@@ -935,13 +827,15 @@ Throws ex-info if tool is unknown.</pre>
     <pre id="var-specs"></pre>
     
     
-    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/ab2ca6bdd352cf434973e7f869487f2ddf2d4a3a/src/main/clojure/clojure/tools/deps/tool.clj#L57">Source</a>
+    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/3cd9983cad995a7c67dc6b45707026d83f556ded/src/main/clojure/clojure/tools/deps/tool.clj#L59">Source</a>
   </div>
 </div>
 
 <br />
 <h2 id="clojure.tools.deps.tree">clojure.tools.deps.tree</h2>
-<pre id="namespace-docstr"></pre>
+<pre id="namespace-docstr">API for managing deps trace structures and extracting tree renderings from
+traces. Note that deps are actually a graph and trees usually show the library
+more than once, expanding only once.</pre>
 
 
 <br />
@@ -951,54 +845,6 @@ Throws ex-info if tool is unknown.</pre>
   <p></p>
   <h2>Public Variables and Functions</h2>
   <div id="var-entry">
-    <br />
-    <hr />
-    <h2 id="clojure.tools.deps.tree/calc-trace">calc-trace</h2>
-    <span id="var-type">function</span><br />
-    <pre id="var-usage">Usage: (calc-trace)
-       (calc-trace opts)
-</pre>
-    <pre id="var-docstr">Like calc-basis, but create and return the dep expansion trace. The trace
-can be passed to trace-&gt;tree to get tree data.
-
-The opts map includes the same opts accepted by clojure.tools.deps/create-basis.
-By default, uses the   root, user, and project deps and no argmaps (essentially the same
-classpath you get by default from the Clojure CLI).
-
-Each dep source value can be :standard, a string path, a deps edn map, or nil.
-Sources are merged in the order - :root, :user, :project, :extra.
-
-Aliases refer to argmaps in the merged deps that will be supplied to the basis
-subprocesses (tool, resolve-deps, make-classpath-map).
-
-Options:
-  :dir     - directory root path, defaults to current directory
-  :root    - dep source, default = :standard
-  :user    - dep source, default = :standard
-  :project - dep source, default = :standard ("./deps.edn")
-  :extra   - dep source, default = nil
-  :aliases - coll of aliases of argmaps to apply to subprocesses</pre>
-    <pre id="var-specs"></pre>
-    
-    
-    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/04da9330b618f8f100fbb47e075898691f4aab03/src/main/clojure/clojure/tools/deps/tree.clj#L48">Source</a>
-  </div><div id="var-entry">
-    <br />
-    <hr />
-    <h2 id="clojure.tools.deps.tree/print-tree">print-tree</h2>
-    <span id="var-type">function</span><br />
-    <pre id="var-usage">Usage: (print-tree tree {:keys [indent], :or {indent 2}, :as opts})
-       (print-tree {:keys [children], :as tree} indented opts)
-</pre>
-    <pre id="var-docstr">Print the tree to the console.
-Options:
-  :indent    Indent spacing (default = 2)
-  :hide-libs Set of libs to ignore as deps under top deps, default = #{org.clojure/clojure}</pre>
-    <pre id="var-specs"></pre>
-    
-    
-    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/04da9330b618f8f100fbb47e075898691f4aab03/src/main/clojure/clojure/tools/deps/tree.clj#L106">Source</a>
-  </div><div id="var-entry">
     <br />
     <hr />
     <h2 id="clojure.tools.deps.tree/trace-&gt;tree">trace-&gt;tree</h2>
@@ -1018,7 +864,80 @@ Each node of the tree is a map from lib to coord-info with at least these keys:
     <pre id="var-specs"></pre>
     
     
-    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/04da9330b618f8f100fbb47e075898691f4aab03/src/main/clojure/clojure/tools/deps/tree.clj#L17">Source</a>
+    <a id="var-source" href="https://github.com/clojure/tools.deps/blob/3cd9983cad995a7c67dc6b45707026d83f556ded/src/main/clojure/clojure/tools/deps/tree.clj#L20">Source</a>
+  </div>
+</div>
+
+<br />
+<h2 id="clojure.tools.deps.util.dir">clojure.tools.deps.util.dir</h2>
+<pre id="namespace-docstr">An abstraction for managing a 'current directory' stack.
+The dynamic var `*the-dir*` holds the current directory.
+Use `with-dir` to push a new absolute (or more usefully)
+relative directory onto the stack, which will pop when the
+scope exits. Use `canonical` to get the canonical File
+of a path in terms of the current directory context.</pre>
+
+
+<br />
+
+
+<div id="var-section">
+  <p></p>
+  <h2>Public Variables and Functions</h2>
+  <div id="var-entry">
+    <br />
+    <hr />
+    <h2 id="clojure.tools.deps.util.dir/*the-dir*">*the-dir*</h2>
+    <span id="var-type">dynamic var</span><br />
+    <pre id="var-usage"></pre>
+    <pre id="var-docstr">Thread-local directory context for resolving relative directories.
+Defaults to current directory. Should always hold an absolute directory
+java.io.File, never null.</pre>
+    <pre id="var-specs"></pre>
+    
+    
+    
+  </div><div id="var-entry">
+    <br />
+    <hr />
+    <h2 id="clojure.tools.deps.util.dir/canonicalize">canonicalize</h2>
+    <span id="var-type">function</span><br />
+    <pre id="var-usage">Usage: (canonicalize f)
+</pre>
+    <pre id="var-docstr">Make canonical File in terms of the current directory context.
+f may be either absolute or relative.</pre>
+    <pre id="var-specs"></pre>
+    
+    
+    
+  </div><div id="var-entry">
+    <br />
+    <hr />
+    <h2 id="clojure.tools.deps.util.dir/sub-path?">sub-path?</h2>
+    <span id="var-type">function</span><br />
+    <pre id="var-usage">Usage: (sub-path? path)
+</pre>
+    <pre id="var-docstr">True if the path is a sub-path of the current directory context.
+path may be either absolute or relative. Will return true if path
+has a parent that is the current directory context, false otherwise.
+Handles relative paths, .., ., etc. The sub-path does not need to
+exist on disk (but the current directory context must).</pre>
+    <pre id="var-specs"></pre>
+    
+    
+    
+  </div><div id="var-entry">
+    <br />
+    <hr />
+    <h2 id="clojure.tools.deps.util.dir/with-dir">with-dir</h2>
+    <span id="var-type">macro</span><br />
+    <pre id="var-usage">Usage: (with-dir dir &amp; body)
+</pre>
+    <pre id="var-docstr">Push directory into current directory context for execution of body.</pre>
+    <pre id="var-specs"></pre>
+    
+    
+    
   </div>
 </div>
 
