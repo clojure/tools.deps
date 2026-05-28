@@ -3,6 +3,8 @@ Changelog
 
 *Also see [Tools and installer changelog](https://github.com/clojure/brew-install/blob/1.12.4/CHANGELOG.md)*
 
+* 0.31.1629 on May 28, 2026
+  * Release alpha stuff below
 * 0.31.1624-alpha2 on May 27, 2026
   * Fix repository resolution to use mirrors, proxies, server auth
 * 0.31.1619-alpha1 on May 27, 2026
