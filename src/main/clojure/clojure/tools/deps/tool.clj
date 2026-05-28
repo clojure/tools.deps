@@ -7,6 +7,8 @@
 ;   You must not remove this notice, or any other, from this software.
 
 (ns clojure.tools.deps.tool
+  "API for managing CLI tools. This code may eventually move out of tools.deps
+  and into the CLI code base as it is specific to the CLI."
   (:require
     [clojure.java.io :as jio]
     [clojure.pprint :as pprint]

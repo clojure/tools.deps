@@ -7,6 +7,9 @@
 ;   You must not remove this notice, or any other, from this software.
 
 (ns clojure.tools.deps.tree
+  "API for managing deps trace structures and extracting tree renderings from
+  traces. Note that deps are actually a graph and trees usually show the library
+  more than once, expanding only once."
   (:require
     [clojure.walk :as walk]
     [clojure.tools.deps :as deps]

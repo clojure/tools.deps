@@ -8,6 +8,9 @@
 
 (ns ^{:skip-wiki true}
   clojure.tools.deps.gen.pom
+  "Implements the Clojure CLI pom generator.
+  IMPL namespace, subject to change without warning.
+  Likely to move to CLI code base in the future."
   (:require [clojure.java.io :as jio]
             [clojure.data.xml :as xml]
             [clojure.data.xml.tree :as tree]

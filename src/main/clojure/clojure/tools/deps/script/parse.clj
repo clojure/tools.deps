@@ -8,6 +8,8 @@
 
 (ns ^{:skip-wiki true}
   clojure.tools.deps.script.parse
+  "Command line parsing utilities.
+  IMPL namespace, subject to change without warning."
   (:require
     [clojure.java.io :as jio]
     [clojure.string :as str]

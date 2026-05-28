@@ -8,6 +8,9 @@
 
 (ns ^{:skip-wiki true}
   clojure.tools.deps.util.maven
+  "Low-level access to Maven via the Mima (Mini Maven) and maven-resolver libs.
+  IMPL NAMESPACE - use at your own risk, subject to change.
+  See clojure.tools.deps.extensions.maven for canonical examples of use."
   (:require
     [clojure.java.io :as jio]
     [clojure.string :as str]

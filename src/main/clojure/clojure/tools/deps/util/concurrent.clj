@@ -8,6 +8,8 @@
 
 (ns ^{:skip-wiki true}
   clojure.tools.deps.util.concurrent
+  "Concurrency utilities.
+  IMPL namespace, subject to change without warning."
   (:import
     [java.util.concurrent Callable Future ThreadFactory ExecutorService Executors TimeUnit]))
 

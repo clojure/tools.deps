@@ -8,6 +8,9 @@
 
 (ns ^{:skip-wiki true}
    clojure.tools.deps.script.generate-manifest2
+  "Implements the Clojure CLI pom generation using tools.deps.
+  IMPL namespace, subject to change without warning.
+  Likely to move to CLI code base in the future."
   (:require [clojure.java.io :as jio]
             [clojure.tools.cli :as cli]
             [clojure.tools.deps.gen.pom :as pom]

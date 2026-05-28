@@ -8,6 +8,8 @@
 
 (ns ^{:skip-wiki true}
   clojure.tools.deps.extensions
+  "Defines the SPI for new dep and manifest types - to implement, extend the
+  multimethods here, then load those extensions before using the tools.deps API."
   (:require
     [clojure.java.io :as jio]
     [clojure.set :as set]))

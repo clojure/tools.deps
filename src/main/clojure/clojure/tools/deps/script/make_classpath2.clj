@@ -8,6 +8,9 @@
 
 (ns ^{:skip-wiki true}
   clojure.tools.deps.script.make-classpath2
+  "Implements the Clojure CLI dep expansion using tools.deps.
+  IMPL namespace, subject to change without warning.
+  Likely to move to CLI code base in the future."
   (:require
     [clojure.java.io :as jio]
     [clojure.pprint :as pprint]

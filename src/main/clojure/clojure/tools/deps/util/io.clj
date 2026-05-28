@@ -8,6 +8,8 @@
 
 (ns ^{:skip-wiki true}
   clojure.tools.deps.util.io
+  "IO utilities. Consider using clojure.tools.deps.edn for reading deps.edn instead.
+  IMPL namespace, subject to change without warning."
   (:require
     [clojure.edn :as edn]
     [clojure.java.io :as jio]

@@ -7,6 +7,10 @@
 ;   You must not remove this notice, or any other, from this software.
 
 (ns clojure.tools.deps
+  "API namespace for tools.deps. New dep types are defined via the multimethods
+  in c.t.deps.extensions. This namespace auto-loads the built-in extensions for
+  :mvn, :git, :local, etc. Most functions for reading, validating, and manipulating
+  deps.edn data have been deprecated and moved to clojure.tools.deps.edn library."
   (:require
     [clojure.java.io :as jio]
     [clojure.set :as set]
