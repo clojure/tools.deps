@@ -1,7 +1,7 @@
 {:paths ["src/main/clojure" "src/main/resources"]
  :deps {
    org.clojure/clojure {:mvn/version "1.12.5"}
-   org.clojure/tools.deps.edn {:mvn/version "0.9.27"}
+   org.clojure/tools.deps.edn {:mvn/version "0.9.38"}
    eu.maveniverse.maven.mima/context {:mvn/version "2.4.44"}
    eu.maveniverse.maven.mima.runtime/standalone-static {:mvn/version "2.4.44"}
    eu.maveniverse.maven.mima.extensions/mhc4 {:mvn/version "2.4.44"}
