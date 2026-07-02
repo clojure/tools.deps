@@ -4,7 +4,7 @@ Changelog
 *Also see [Tools and installer changelog](https://github.com/clojure/brew-install/blob/1.12.4/CHANGELOG.md)*
 
 * next
-  * Update to tools.deps.edn 0.9.38
+  * Update to tools.deps.edn 0.9.42
 * 0.31.1629 on May 28, 2026
   * Release alpha stuff below
 * 0.31.1624-alpha2 on May 27, 2026
