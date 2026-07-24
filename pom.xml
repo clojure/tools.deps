@@ -22,7 +22,7 @@
     <!-- used for build -->
     <clojure.warnOnReflection>true</clojure.warnOnReflection>
     <clojure.version>1.12.5</clojure.version>
-    <mimaVersion>2.4.44</mimaVersion>
+    <mimaVersion>2.4.45</mimaVersion>
   </properties>
 
   <dependencies>
@@ -34,7 +34,7 @@
     <dependency>
       <groupId>org.clojure</groupId>
       <artifactId>tools.deps.edn</artifactId>
-      <version>0.9.38</version>
+      <version>0.9.42</version>
     </dependency>
     <dependency>
       <groupId>eu.maveniverse.maven.mima</groupId>
@@ -61,7 +61,7 @@
     <dependency>
       <groupId>org.clojure</groupId>
       <artifactId>tools.deps.maven-s3-transporter</artifactId>
-      <version>0.1.3</version>
+      <version>0.1.4</version>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
