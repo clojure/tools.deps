@@ -45,9 +45,9 @@
   ;; only call when version is a range
   [lib {:keys [mvn/version] :as coord} {:keys [mvn/local-repo mvn/repos] :as config}]
   (let [local-repo (or local-repo @maven/cached-local-repo)
-        context ^Context (session/retrieve-local :mvn/context #(maven/make-context :local-repo local-repo))
-        system ^RepositorySystem (session/retrieve-local :mvn/system #(maven/make-system context))
-        session ^RepositorySystemSession (session/retrieve-local :mvn/session #(maven/make-system-session context))]
+        context ^Context (session/retrieve :mvn/context #(maven/make-context :local-repo local-repo))
+        system ^RepositorySystem (session/retrieve :mvn/system #(maven/make-system context))
+        session ^RepositorySystemSession (session/retrieve :mvn/session #(maven/make-system-session context))]
     (or
       (session/retrieve {:type :mvn/highest-version lib version}
         (fn []
@@ -64,9 +64,9 @@
     (cond
       (contains? #{"RELEASE" "LATEST"} version)
       (let [local-repo (or local-repo @maven/cached-local-repo)
-            context ^Context (session/retrieve-local :mvn/context #(maven/make-context :local-repo local-repo))
-            system ^RepositorySystem (session/retrieve-local :mvn/system #(maven/make-system context))
-            session ^RepositorySystemSession (session/retrieve-local :mvn/session #(maven/make-system-session context))
+            context ^Context (session/retrieve :mvn/context #(maven/make-context :local-repo local-repo))
+            system ^RepositorySystem (session/retrieve :mvn/system #(maven/make-system context))
+            session ^RepositorySystemSession (session/retrieve :mvn/session #(maven/make-system-session context))
             artifact (maven/coord->artifact lib coord)
             req (VersionRequest. artifact (maven/remote-repos system session repos) nil)
             result (.resolveVersion system session req)]
@@ -108,9 +108,9 @@
 (defn- read-descriptor
   ^ArtifactDescriptorResult [lib coord {:keys [mvn/repos mvn/local-repo]}]
   (let [local-repo (or local-repo @maven/cached-local-repo)
-        context ^Context (session/retrieve-local :mvn/context #(maven/make-context :local-repo local-repo))
-        system ^RepositorySystem (session/retrieve-local :mvn/system #(maven/make-system context))
-        session ^RepositorySystemSession (session/retrieve-local :mvn/session #(maven/make-system-session context))
+        context ^Context (session/retrieve :mvn/context #(maven/make-context :local-repo local-repo))
+        system ^RepositorySystem (session/retrieve :mvn/system #(maven/make-system context))
+        session ^RepositorySystemSession (session/retrieve :mvn/session #(maven/make-system-session context))
         artifact (maven/coord->artifact lib coord)
         repos (maven/remote-repos system session repos)
         req (ArtifactDescriptorRequest. artifact repos nil)]
@@ -173,9 +173,9 @@
   (check-version lib coord)
   (when (contains? #{"jar"} extension)
     (let [local-repo (or local-repo @maven/cached-local-repo)
-          context ^Context (session/retrieve-local :mvn/context #(maven/make-context :local-repo local-repo))
-          system ^RepositorySystem (session/retrieve-local :mvn/system #(maven/make-system context))
-          session ^RepositorySystemSession (session/retrieve-local :mvn/session #(maven/make-system-session context))
+          context ^Context (session/retrieve :mvn/context #(maven/make-context :local-repo local-repo))
+          system ^RepositorySystem (session/retrieve :mvn/system #(maven/make-system context))
+          session ^RepositorySystemSession (session/retrieve :mvn/session #(maven/make-system-session context))
           mvn-repos (maven/remote-repos system session repos)]
       [(get-artifact lib coord system session mvn-repos)])))
 
@@ -186,9 +186,9 @@
 (defmethod ext/find-versions :mvn
   [lib _coord _coord-type {:keys [mvn/repos mvn/local-repo]}]
   (let [local-repo (or local-repo maven/default-local-repo)
-        context ^Context (session/retrieve-local :mvn/context #(maven/make-context :local-repo local-repo))
-        system ^RepositorySystem (session/retrieve-local :mvn/system #(maven/make-system context))
-        session ^RepositorySystemSession (session/retrieve-local :mvn/session #(maven/make-system-session context))
+        context ^Context (session/retrieve :mvn/context #(maven/make-context :local-repo local-repo))
+        system ^RepositorySystem (session/retrieve :mvn/system #(maven/make-system context))
+        session ^RepositorySystemSession (session/retrieve :mvn/session #(maven/make-system-session context))
         artifact (maven/coord->artifact lib {:mvn/version "(,]"})
         req (VersionRangeRequest. artifact (maven/remote-repos system session repos) nil)
         result (.resolveVersionRange system session req)
