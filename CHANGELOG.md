@@ -3,6 +3,8 @@ Changelog
 
 *Also see [Tools and installer changelog](https://github.com/clojure/brew-install/blob/1.12.4/CHANGELOG.md)*
 
+* next
+  * Update deps - Clojure 1.12,6, latest mima, etc
 * 0.31.1642 on Jul 27, 2026
   * Update to tools.deps.edn 0.9.48
 * 0.31.1638 on Jul 24, 2026

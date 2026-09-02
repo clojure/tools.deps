@@ -21,8 +21,8 @@
   <properties>
     <!-- used for build -->
     <clojure.warnOnReflection>true</clojure.warnOnReflection>
-    <clojure.version>1.12.5</clojure.version>
-    <mimaVersion>2.4.45</mimaVersion>
+    <clojure.version>1.12.6</clojure.version>
+    <mimaVersion>2.4.48</mimaVersion>
   </properties>
 
   <dependencies>
