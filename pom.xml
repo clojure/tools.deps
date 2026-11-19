@@ -8,7 +8,7 @@
   <parent>
     <groupId>org.clojure</groupId>
     <artifactId>pom.contrib</artifactId>
-    <version>1.4.0</version>
+    <version>1.4.5</version>
   </parent>
 
   <developers>
@@ -21,7 +21,7 @@
   <properties>
     <!-- used for build -->
     <clojure.warnOnReflection>true</clojure.warnOnReflection>
-    <clojure.version>1.12.6</clojure.version>
+    <clojure.version>1.12.7</clojure.version>
     <mimaVersion>2.4.48</mimaVersion>
   </properties>
 
@@ -34,7 +34,7 @@
     <dependency>
       <groupId>org.clojure</groupId>
       <artifactId>tools.deps.edn</artifactId>
-      <version>0.9.48</version>
+      <version>0.10.63</version>
     </dependency>
     <dependency>
       <groupId>eu.maveniverse.maven.mima</groupId>
